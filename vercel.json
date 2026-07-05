@@ -1,0 +1,13 @@
+{
+  "cleanUrls": true,
+  "rewrites": [
+    {
+      "source": "/agenda",
+      "destination": "https://atmosfera-agenda.vercel.app/agenda"
+    },
+    {
+      "source": "/agenda/:path*",
+      "destination": "https://atmosfera-agenda.vercel.app/agenda/:path*"
+    }
+  ]
+}
