@@ -2,6 +2,7 @@ import './landing-v2.css';
 import './nav-gradient.css';
 import './mobile-hero-tuning.css';
 import './refraction-experiment.css';
+import './content-expansion.js';
 
 const body = document.body;
 const field = document.querySelector('.color-field');
@@ -70,11 +71,32 @@ const mobileFrames = [
     blue:   { x: 51, y: 58, sx: 1.14, sy: .94,  r: 5,   o: .90 },
   },
   {
-    id: 'experiencia',
-    halo:   { x: 74, y: 54, sx: 1.42, sy: 1.72, r: 8,  o: .53 },
-    orange: { x: 76, y: 48, sx: 1.18, sy: 1.48, r: 10, o: .72 },
-    red:    { x: 72, y: 56, sx: 1.10, sy: 1.58, r: 8,  o: .70 },
-    blue:   { x: 73, y: 65, sx: .86,  sy: 1.24, r: 4,  o: .92 },
+    id: 'principio',
+    halo:   { x: 74, y: 52, sx: 1.55, sy: 1.75, r: 8,  o: .53 },
+    orange: { x: 78, y: 47, sx: 1.23, sy: 1.50, r: 12, o: .73 },
+    red:    { x: 70, y: 56, sx: 1.18, sy: 1.60, r: 8,  o: .70 },
+    blue:   { x: 68, y: 64, sx: .92,  sy: 1.26, r: 3,  o: .92 },
+  },
+  {
+    id: 'agenda',
+    halo:   { x: 28, y: 47, sx: 1.88, sy: 1.38, r: -8,  o: .53 },
+    orange: { x: 20, y: 43, sx: 1.65, sy: 1.10, r: -12, o: .74 },
+    red:    { x: 34, y: 51, sx: 1.48, sy: 1.16, r: -6,  o: .71 },
+    blue:   { x: 46, y: 59, sx: 1.12, sy: .98,  r: 6,   o: .90 },
+  },
+  {
+    id: 'preguntas',
+    halo:   { x: 76, y: 50, sx: 1.62, sy: 1.32, r: 6,  o: .52 },
+    orange: { x: 72, y: 43, sx: 1.36, sy: 1.12, r: 9,  o: .72 },
+    red:    { x: 68, y: 51, sx: 1.28, sy: 1.22, r: 5,  o: .69 },
+    blue:   { x: 78, y: 60, sx: 1.00, sy: 1.05, r: 2,  o: .91 },
+  },
+  {
+    id: 'cierre',
+    halo:   { x: 45, y: 56, sx: 1.82, sy: 1.58, r: -4, o: .54 },
+    orange: { x: 39, y: 51, sx: 1.50, sy: 1.36, r: -6, o: .75 },
+    red:    { x: 51, y: 58, sx: 1.32, sy: 1.46, r: -2, o: .72 },
+    blue:   { x: 62, y: 65, sx: 1.02, sy: 1.20, r: 4,  o: .92 },
   },
 ];
 
@@ -108,11 +130,32 @@ const desktopFrames = [
     blue:   { x: 50, y: 58, sx: 1.08, sy: .92,  r: 4,   o: .88 },
   },
   {
-    id: 'experiencia',
-    halo:   { x: 70, y: 54, sx: 1.36, sy: 1.62, r: 8, o: .50 },
-    orange: { x: 72, y: 48, sx: 1.14, sy: 1.40, r: 9, o: .70 },
-    red:    { x: 69, y: 56, sx: 1.06, sy: 1.48, r: 7, o: .68 },
-    blue:   { x: 70, y: 64, sx: .82,  sy: 1.18, r: 4, o: .90 },
+    id: 'principio',
+    halo:   { x: 70, y: 53, sx: 1.42, sy: 1.64, r: 7, o: .50 },
+    orange: { x: 73, y: 47, sx: 1.16, sy: 1.42, r: 9, o: .70 },
+    red:    { x: 68, y: 56, sx: 1.08, sy: 1.50, r: 7, o: .68 },
+    blue:   { x: 68, y: 64, sx: .84,  sy: 1.18, r: 3, o: .90 },
+  },
+  {
+    id: 'agenda',
+    halo:   { x: 34, y: 48, sx: 1.78, sy: 1.30, r: -7, o: .50 },
+    orange: { x: 28, y: 43, sx: 1.55, sy: 1.02, r: -11, o: .71 },
+    red:    { x: 40, y: 51, sx: 1.38, sy: 1.10, r: -6, o: .68 },
+    blue:   { x: 51, y: 59, sx: 1.04, sy: .94, r: 5, o: .88 },
+  },
+  {
+    id: 'preguntas',
+    halo:   { x: 68, y: 50, sx: 1.52, sy: 1.24, r: 5, o: .49 },
+    orange: { x: 67, y: 44, sx: 1.27, sy: 1.06, r: 8, o: .69 },
+    red:    { x: 63, y: 51, sx: 1.18, sy: 1.14, r: 4, o: .66 },
+    blue:   { x: 72, y: 60, sx: .94, sy: 1.00, r: 2, o: .89 },
+  },
+  {
+    id: 'cierre',
+    halo:   { x: 46, y: 56, sx: 1.70, sy: 1.46, r: -4, o: .51 },
+    orange: { x: 41, y: 51, sx: 1.42, sy: 1.27, r: -6, o: .71 },
+    red:    { x: 52, y: 57, sx: 1.24, sy: 1.36, r: -2, o: .68 },
+    blue:   { x: 61, y: 64, sx: .98, sy: 1.12, r: 4, o: .90 },
   },
 ];
 
