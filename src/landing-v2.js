@@ -1,4 +1,5 @@
 import './landing-v2.css';
+import './nav-gradient.css';
 
 const root = document.documentElement;
 const body = document.body;
