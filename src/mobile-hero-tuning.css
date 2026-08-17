@@ -8,7 +8,7 @@
 
   .hero-center {
     position: absolute;
-    top: 31svh;
+    top: 24svh;
     left: var(--page-pad);
     right: var(--page-pad);
     transform: none;
@@ -29,6 +29,7 @@
     font-size: clamp(42px, 11.4vw, 52px);
     line-height: .95;
     letter-spacing: -0.06em;
+    font-weight: 600;
   }
 
   .hero-kicker {
