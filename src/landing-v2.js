@@ -267,12 +267,15 @@ function updateRefraction() {
   const travel = rect.height + viewport * .92;
   const progress = clamp((viewport * .96 - rect.top) / Math.max(1, travel));
   const peak = Math.sin(progress * Math.PI);
-  const shaped = Math.pow(peak, 1.18);
-  const active = shaped > .018;
+  const shaped = Math.pow(peak, .94);
+  const active = shaped > .01;
+
+  const opticalOpacity = active ? Math.min(1, .14 + shaped * .98) : 0;
+  const displacementScale = active ? shaped * 82 : 0;
 
   opticalWindow.style.visibility = active ? 'visible' : 'hidden';
-  opticalWindow.style.opacity = active ? (shaped * .92).toFixed(3) : '0';
-  displacementMap.setAttribute('scale', (shaped * 46).toFixed(2));
+  opticalWindow.style.opacity = opticalOpacity.toFixed(3);
+  displacementMap.setAttribute('scale', displacementScale.toFixed(2));
 }
 
 function updateScrollEffects({ immediate = false } = {}) {
