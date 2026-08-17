@@ -1,0 +1,104 @@
+/*
+ * Safari / iOS fallback for the optical transition.
+ * Instead of relying on feDisplacementMap, the complete chromatic field is
+ * duplicated inside softly feathered vertical slices and shifted as a whole.
+ */
+
+html.safari-optical-slices .optical-window {
+  display: none !important;
+}
+
+.safari-optical-window {
+  --optical-top: 24svh;
+  --optical-height: 52svh;
+  position: fixed;
+  top: var(--optical-top);
+  left: 0;
+  width: 100vw;
+  height: var(--optical-height);
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+  opacity: 0;
+  visibility: hidden;
+  contain: paint;
+  will-change: opacity;
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgba(0, 0, 0, .26) 8%,
+    #000 18%,
+    #000 82%,
+    rgba(0, 0, 0, .26) 92%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgba(0, 0, 0, .26) 8%,
+    #000 18%,
+    #000 82%,
+    rgba(0, 0, 0, .26) 92%,
+    transparent 100%
+  );
+}
+
+.safari-optical-slice {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  overflow: hidden;
+  pointer-events: none;
+  will-change: opacity;
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    rgba(0, 0, 0, .38) 8%,
+    #000 19%,
+    #000 81%,
+    rgba(0, 0, 0, .38) 92%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    rgba(0, 0, 0, .38) 8%,
+    #000 19%,
+    #000 81%,
+    rgba(0, 0, 0, .38) 92%,
+    transparent 100%
+  );
+}
+
+.safari-optical-slice-field {
+  position: absolute;
+  top: calc(0px - var(--optical-top));
+  width: 100vw;
+  height: 100svh;
+  overflow: hidden;
+  transform-origin: 50% 50%;
+  will-change: transform;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+.safari-optical-slice-field .field-layer {
+  will-change: transform, opacity;
+}
+
+@media (min-width: 760px) {
+  .safari-optical-window {
+    --optical-top: 21vh;
+    --optical-height: 58vh;
+  }
+
+  .safari-optical-slice-field {
+    height: 100vh;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .safari-optical-window {
+    display: none;
+  }
+}
