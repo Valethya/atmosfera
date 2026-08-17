@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="es-CL">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#f5f5f5" />
+    <meta name="robots" content="noindex,follow" />
+    <title>404 | Atmósfera</title>
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600&display=swap"
+    />
+
+    <style>
+      :root {
+        --paper: #f5f5f5;
+        --ink: #111111;
+        --orange: #ff5a00;
+        --red: #e8291f;
+        --violet: #321049;
+        --blue: #075dff;
+        font-family: "Bricolage Grotesque", Arial, sans-serif;
+        color: var(--ink);
+        background: var(--paper);
+        font-synthesis: none;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        width: 100%;
+        min-width: 320px;
+        min-height: 100%;
+        margin: 0;
+        background: var(--paper);
+      }
+
+      body {
+        overflow: hidden;
+      }
+
+      .error-page {
+        position: relative;
+        min-height: 100svh;
+        overflow: hidden;
+        isolation: isolate;
+      }
+
+      .error-content {
+        position: absolute;
+        z-index: 2;
+        left: clamp(28px, 8vw, 120px);
+        top: 42%;
+        transform: translateY(-50%);
+      }
+
+      .error-code {
+        margin: 0;
+        font-size: clamp(118px, 15vw, 230px);
+        font-weight: 600;
+        line-height: .78;
+        letter-spacing: -.075em;
+      }
+
+      .error-title {
+        margin: clamp(28px, 3.5vw, 42px) 0 0;
+        font-size: clamp(31px, 4vw, 58px);
+        font-weight: 500;
+        line-height: 1;
+        letter-spacing: -.055em;
+      }
+
+      .error-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 12px;
+        margin-top: clamp(28px, 3vw, 42px);
+        color: rgba(17, 17, 17, .76);
+        font-size: clamp(15px, 1.4vw, 20px);
+        line-height: 1;
+        text-decoration: none;
+        transition: color .25s ease, transform .25s ease;
+      }
+
+      .error-link::after {
+        content: "→";
+        color: var(--orange);
+        transition: transform .25s ease;
+      }
+
+      .error-link:hover,
+      .error-link:focus-visible {
+        color: var(--ink);
+      }
+
+      .error-link:hover::after,
+      .error-link:focus-visible::after {
+        transform: translateX(5px);
+      }
+
+      .error-link:focus-visible {
+        outline: 1px solid currentColor;
+        outline-offset: 7px;
+      }
+
+      .error-field {
+        position: absolute;
+        z-index: 1;
+        right: min(-16vw, -80px);
+        bottom: min(-24vw, -120px);
+        width: min(760px, 66vw);
+        aspect-ratio: 1 / 1;
+        border-radius: 50%;
+        pointer-events: none;
+        background:
+          radial-gradient(
+            circle at 70% 68%,
+            rgba(0, 82, 255, 1) 0 17%,
+            rgba(8, 73, 247, .98) 25%,
+            rgba(50, 16, 73, .92) 40%,
+            rgba(224, 31, 45, .88) 56%,
+            rgba(255, 88, 0, .90) 70%,
+            rgba(255, 126, 38, .52) 81%,
+            rgba(255, 126, 38, 0) 100%
+          );
+        filter: blur(28px);
+        transform: rotate(-10deg) scale(1.12, .98);
+      }
+
+      .error-field::before {
+        content: "";
+        position: absolute;
+        inset: -10%;
+        border-radius: inherit;
+        background: radial-gradient(
+          circle at 42% 35%,
+          rgba(255, 178, 98, .32),
+          rgba(255, 90, 0, .10) 42%,
+          rgba(255, 90, 0, 0) 72%
+        );
+        filter: blur(22px);
+      }
+
+      @media (max-width: 759px) {
+        .error-content {
+          left: 11.5vw;
+          top: 44%;
+        }
+
+        .error-code {
+          font-size: clamp(112px, 33vw, 154px);
+        }
+
+        .error-title {
+          margin-top: 27px;
+          font-size: clamp(29px, 8.1vw, 37px);
+        }
+
+        .error-link {
+          margin-top: 27px;
+          gap: 10px;
+          font-size: 15px;
+        }
+
+        .error-field {
+          right: -48vw;
+          bottom: -15vw;
+          width: 118vw;
+          filter: blur(24px);
+          transform: rotate(-8deg) scale(1.05, 1.12);
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .error-link,
+        .error-link::after {
+          transition: none;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <main class="error-page" aria-labelledby="error-title">
+      <div class="error-content">
+        <p class="error-code" aria-hidden="true">404</p>
+        <h1 class="error-title" id="error-title">Aquí no hay nada.</h1>
+        <a class="error-link" href="/">Volver al inicio</a>
+      </div>
+
+      <div class="error-field" aria-hidden="true"></div>
+    </main>
+  </body>
+</html>
