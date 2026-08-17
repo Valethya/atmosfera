@@ -133,9 +133,40 @@
   width: 100vw;
   height: 100svh;
   overflow: hidden;
-  filter: url(#optical-displacement);
-  transform: translateZ(0);
-  backface-visibility: hidden;
+  filter: none;
+  -webkit-filter: none;
+  backface-visibility: visible;
+}
+
+/*
+ * Safari/WebKit puede omitir un filtro SVG aplicado a un padre mientras sus
+ * hijos están cambiando de transform continuamente. En la capa óptica los
+ * cuatro círculos sí se transforman cada frame, por lo que aplicamos la
+ * refracción directamente sobre cada elemento animado. Así mantenemos el blur
+ * original y después ejecutamos el mismo displacement map.
+ */
+.optical-field .field-layer {
+  will-change: transform, opacity, filter;
+}
+
+.optical-field .field-halo {
+  filter: blur(32px) url(#optical-displacement);
+  -webkit-filter: blur(32px) url(#optical-displacement);
+}
+
+.optical-field .field-orange {
+  filter: blur(20px) url(#optical-displacement);
+  -webkit-filter: blur(20px) url(#optical-displacement);
+}
+
+.optical-field .field-red {
+  filter: blur(19px) url(#optical-displacement);
+  -webkit-filter: blur(19px) url(#optical-displacement);
+}
+
+.optical-field .field-blue {
+  filter: blur(17px) url(#optical-displacement);
+  -webkit-filter: blur(17px) url(#optical-displacement);
 }
 
 .refraction-bridge {
