@@ -1,7 +1,7 @@
 /*
- * Legibilidad localizada + transición cromática.
- * El contenido gana un velo radial muy suave; la mancha sigue siendo el
- * elemento que se mueve y se deforma entre secciones.
+ * Legibilidad localizada + transición óptica.
+ * El contenido gana un velo radial; la mancha se duplica sólo dentro de una
+ * ventana acotada donde un mapa de desplazamiento horizontal la refracta.
  */
 .reading-veil {
   position: relative;
@@ -79,29 +79,80 @@
   mask-image: radial-gradient(ellipse at center, #000 0 36%, rgba(0,0,0,.72) 58%, transparent 82%);
 }
 
-/*
- * La transición queda intencionalmente vacía: ya no simulamos vidrio con
- * tubos superpuestos. El estado `refraccion` de la mancha hace el trabajo
- * visual al atravesar este espacio y separa sus capas por scroll.
- */
+.color-field { z-index: -2; }
+
+.optical-defs {
+  position: absolute;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.optical-window {
+  --optical-top: 24svh;
+  --optical-height: 52svh;
+  position: fixed;
+  top: var(--optical-top);
+  left: 0;
+  width: 100vw;
+  height: var(--optical-height);
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+  opacity: 0;
+  visibility: hidden;
+  contain: paint;
+  will-change: opacity;
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgba(0,0,0,.30) 8%,
+    #000 18%,
+    #000 82%,
+    rgba(0,0,0,.30) 92%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgba(0,0,0,.30) 8%,
+    #000 18%,
+    #000 82%,
+    rgba(0,0,0,.30) 92%,
+    transparent 100%
+  );
+}
+
+.optical-field {
+  position: absolute;
+  top: calc(-1 * var(--optical-top));
+  left: 0;
+  width: 100vw;
+  height: 100svh;
+  overflow: hidden;
+  filter: url(#optical-displacement);
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
 .refraction-bridge {
   position: relative;
-  min-height: clamp(120px, 18svh, 210px);
+  min-height: clamp(150px, 22svh, 250px);
   overflow: clip;
   pointer-events: none;
 }
 
-.refraction-bars {
-  display: none;
-}
-
 @media (min-width: 760px) {
-  .reading-veil::before {
-    inset: -15% -12%;
+  .reading-veil::before { inset: -15% -12%; }
+
+  .optical-window {
+    --optical-top: 21vh;
+    --optical-height: 58vh;
   }
 
   .refraction-bridge {
-    min-height: clamp(150px, 17vh, 240px);
+    min-height: clamp(170px, 20vh, 280px);
   }
 }
 
@@ -110,4 +161,6 @@
     backdrop-filter: blur(6px);
     -webkit-backdrop-filter: blur(6px);
   }
+
+  .optical-window { display: none; }
 }
