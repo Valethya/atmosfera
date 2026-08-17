@@ -19,6 +19,49 @@
         <div class="field-layer field-blue" data-field-layer="blue"></div>
       </div>
 
+      <div class="optical-window" aria-hidden="true">
+        <div class="optical-field">
+          <div class="field-layer field-halo" data-optical-layer="halo"></div>
+          <div class="field-layer field-orange" data-optical-layer="orange"></div>
+          <div class="field-layer field-red" data-optical-layer="red"></div>
+          <div class="field-layer field-blue" data-optical-layer="blue"></div>
+        </div>
+      </div>
+
+      <svg class="optical-defs" width="0" height="0" aria-hidden="true" focusable="false">
+        <defs>
+          <filter id="optical-displacement" x="-20%" y="-20%" width="140%" height="140%" color-interpolation-filters="sRGB">
+            <feTurbulence
+              id="optical-map-noise"
+              type="fractalNoise"
+              baseFrequency="0.036 0.0025"
+              numOctaves="1"
+              seed="17"
+              stitchTiles="stitch"
+              result="noise"
+            />
+            <feGaussianBlur in="noise" stdDeviation="1.8 0.15" result="softNoise" />
+            <feColorMatrix
+              in="softNoise"
+              type="matrix"
+              values="1 0 0 0 0
+                      0 0 0 0 .5
+                      0 0 0 0 .5
+                      0 0 0 1 0"
+              result="horizontalMap"
+            />
+            <feDisplacementMap
+              id="optical-displacement-map"
+              in="SourceGraphic"
+              in2="horizontalMap"
+              scale="0"
+              xChannelSelector="R"
+              yChannelSelector="G"
+            />
+          </filter>
+        </defs>
+      </svg>
+
       <header class="site-header">
         <a class="brand-star" href="#home" aria-label="Atmósfera — inicio"></a>
         <a class="brand-name" href="#home">Atmosfera</a>
