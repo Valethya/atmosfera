@@ -9,7 +9,6 @@ const menuLinks = document.querySelectorAll('.menu-link');
 
 const clamp = (value, min = 0, max = 1) => Math.min(max, Math.max(min, value));
 const lerp = (a, b, t) => a + (b - a) * t;
-const easeOutCubic = t => 1 - Math.pow(1 - t, 3);
 const easeInOutCubic = t => t < 0.5
   ? 4 * t * t * t
   : 1 - Math.pow(-2 * t + 2, 3) / 2;
@@ -139,7 +138,6 @@ updateColorField();
 requestAnimationFrame(() => {
   body.classList.add('loaded');
 
-  // Keep the first reveal from feeling delayed when the page opens mid-scroll.
   const visibleNow = [...reveals].filter(element => {
     const rect = element.getBoundingClientRect();
     return rect.top < window.innerHeight * 0.86 && rect.bottom > 0;
