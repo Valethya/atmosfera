@@ -1,0 +1,97 @@
+/* Mobile typography legibility experiment.
+ * This file only overrides text sizing/contrast below 760px so the visual-v1
+ * branch remains untouched while we evaluate the denser content on phone.
+ */
+
+@media (max-width: 759px) {
+  .section-copy {
+    width: min(520px, 96%);
+    font-size: 16px;
+    line-height: 1.62;
+    color: rgba(17,17,17,.82);
+  }
+
+  .hero-bottom .hero-description {
+    width: min(370px, 90%);
+    font-size: 11.5px;
+    line-height: 1.5;
+    color: rgba(17,17,17,.76);
+  }
+
+  .accordion-num {
+    font-size: 11px;
+  }
+
+  .accordion-heading small {
+    font-size: 12px;
+    line-height: 1.35;
+    color: rgba(17,17,17,.72);
+  }
+
+  .accordion-body {
+    padding: 0 28px 24px 52px;
+  }
+
+  .accordion-body p {
+    font-size: 15.5px;
+    line-height: 1.62;
+    color: rgba(17,17,17,.82);
+  }
+
+  .accordion-note {
+    margin-top: 20px !important;
+    padding-top: 14px;
+    font-size: 10.5px !important;
+    line-height: 1.5 !important;
+    letter-spacing: .025em;
+    color: rgba(17,17,17,.78) !important;
+  }
+
+  .principle-copy {
+    width: min(560px, 96%);
+  }
+
+  .principle-copy p {
+    font-size: 16px;
+    line-height: 1.62;
+    color: rgba(17,17,17,.82);
+  }
+
+  .agenda-condition {
+    width: min(560px, 96%);
+    padding-left: 22px;
+  }
+
+  .agenda-condition p {
+    font-size: 15.5px;
+    line-height: 1.62;
+    color: rgba(17,17,17,.84);
+  }
+
+  .text-link {
+    font-size: 12.5px;
+    line-height: 1.4;
+  }
+
+  .faq .accordion-heading strong {
+    font-size: clamp(18px, 5vw, 22px);
+    line-height: 1.18;
+  }
+
+  .faq .accordion-body {
+    padding-right: 24px;
+  }
+
+  .closing-copy {
+    width: min(460px, 96%);
+    font-size: 16px;
+    line-height: 1.62;
+    color: rgba(17,17,17,.82);
+  }
+
+  .closing-coordinates {
+    font-size: 11px;
+    line-height: 1.65;
+    color: rgba(17,17,17,.68);
+  }
+}
