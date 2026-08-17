@@ -1,6 +1,7 @@
 /*
- * Experimento visual: legibilidad + refracción.
- * Se aplica de forma localizada para no convertir toda la landing en glass UI.
+ * Legibilidad localizada + transición cromática.
+ * El contenido gana un velo radial muy suave; la mancha sigue siendo el
+ * elemento que se mueve y se deforma entre secciones.
  */
 .reading-veil {
   position: relative;
@@ -10,132 +11,103 @@
 .reading-veil::before {
   content: '';
   position: absolute;
-  inset: -20px -16px;
+  inset: -13% -10%;
   z-index: -1;
   pointer-events: none;
-  border-radius: 36px;
+  border-radius: 50%;
   background: radial-gradient(
-    ellipse at 50% 48%,
-    rgba(245, 245, 245, .38) 0%,
-    rgba(245, 245, 245, .25) 48%,
-    rgba(245, 245, 245, .11) 72%,
-    rgba(245, 245, 245, 0) 100%
+    ellipse at 50% 50%,
+    rgba(245, 245, 245, .34) 0%,
+    rgba(245, 245, 245, .24) 34%,
+    rgba(245, 245, 245, .13) 52%,
+    rgba(245, 245, 245, .055) 66%,
+    rgba(245, 245, 245, 0) 80%
   );
-  backdrop-filter: blur(7px);
-  -webkit-backdrop-filter: blur(7px);
-  -webkit-mask-image: radial-gradient(ellipse at center, #000 0 62%, rgba(0,0,0,.72) 78%, transparent 100%);
-  mask-image: radial-gradient(ellipse at center, #000 0 62%, rgba(0,0,0,.72) 78%, transparent 100%);
+  backdrop-filter: blur(9px);
+  -webkit-backdrop-filter: blur(9px);
+  -webkit-mask-image: radial-gradient(
+    ellipse 72% 66% at 50% 50%,
+    #000 0 34%,
+    rgba(0,0,0,.88) 48%,
+    rgba(0,0,0,.48) 62%,
+    rgba(0,0,0,.14) 72%,
+    transparent 84%
+  );
+  mask-image: radial-gradient(
+    ellipse 72% 66% at 50% 50%,
+    #000 0 34%,
+    rgba(0,0,0,.88) 48%,
+    rgba(0,0,0,.48) 62%,
+    rgba(0,0,0,.14) 72%,
+    transparent 84%
+  );
+}
+
+.reading-veil--offer::before {
+  inset: -10% -8%;
+  -webkit-mask-image: radial-gradient(
+    ellipse 78% 72% at 50% 48%,
+    #000 0 30%,
+    rgba(0,0,0,.84) 47%,
+    rgba(0,0,0,.40) 63%,
+    rgba(0,0,0,.10) 73%,
+    transparent 84%
+  );
+  mask-image: radial-gradient(
+    ellipse 78% 72% at 50% 48%,
+    #000 0 30%,
+    rgba(0,0,0,.84) 47%,
+    rgba(0,0,0,.40) 63%,
+    rgba(0,0,0,.10) 73%,
+    transparent 84%
+  );
 }
 
 .reading-veil--message::before {
-  inset: -18px -22px;
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
+  inset: -34% -18%;
+  border-radius: 50%;
   background: radial-gradient(
     ellipse at center,
-    rgba(245, 245, 245, .32) 0%,
-    rgba(245, 245, 245, .18) 58%,
-    rgba(245, 245, 245, 0) 100%
+    rgba(245, 245, 245, .30) 0%,
+    rgba(245, 245, 245, .17) 42%,
+    rgba(245, 245, 245, .06) 62%,
+    rgba(245, 245, 245, 0) 80%
   );
+  backdrop-filter: blur(7px);
+  -webkit-backdrop-filter: blur(7px);
+  -webkit-mask-image: radial-gradient(ellipse at center, #000 0 36%, rgba(0,0,0,.72) 58%, transparent 82%);
+  mask-image: radial-gradient(ellipse at center, #000 0 36%, rgba(0,0,0,.72) 58%, transparent 82%);
 }
 
+/*
+ * La transición queda intencionalmente vacía: ya no simulamos vidrio con
+ * tubos superpuestos. El estado `refraccion` de la mancha hace el trabajo
+ * visual al atravesar este espacio y separa sus capas por scroll.
+ */
 .refraction-bridge {
-  --refraction-opacity: .12;
-  --refraction-blur: 4px;
-  --refraction-saturation: 1.04;
   position: relative;
-  min-height: clamp(190px, 32svh, 330px);
-  display: grid;
-  place-items: center;
-  padding: 3svh var(--page-pad) 5svh;
+  min-height: clamp(120px, 18svh, 210px);
   overflow: clip;
   pointer-events: none;
 }
 
 .refraction-bars {
-  width: min(76vw, 520px);
-  height: clamp(145px, 24svh, 265px);
-  display: flex;
-  align-items: stretch;
-  justify-content: center;
-  gap: clamp(6px, 1.9vw, 13px);
-  opacity: var(--refraction-opacity);
-  transition: opacity .08s linear;
+  display: none;
 }
-
-.refraction-bar {
-  position: relative;
-  display: block;
-  flex: 0 0 auto;
-  min-width: 8px;
-  border-radius: 999px;
-  overflow: hidden;
-  background: linear-gradient(
-    90deg,
-    rgba(255,255,255,.20) 0%,
-    rgba(255,255,255,.055) 27%,
-    rgba(255,255,255,.015) 53%,
-    rgba(255,255,255,.12) 82%,
-    rgba(255,255,255,.22) 100%
-  );
-  border: 1px solid rgba(255,255,255,.22);
-  backdrop-filter: blur(var(--refraction-blur)) saturate(var(--refraction-saturation)) contrast(1.03);
-  -webkit-backdrop-filter: blur(var(--refraction-blur)) saturate(var(--refraction-saturation)) contrast(1.03);
-  box-shadow:
-    inset 1px 0 0 rgba(255,255,255,.15),
-    inset -1px 0 0 rgba(255,255,255,.08),
-    0 16px 38px rgba(17,17,17,.035);
-  will-change: transform, opacity;
-}
-
-.refraction-bar::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  background: linear-gradient(
-    90deg,
-    rgba(255,255,255,.23),
-    transparent 34%,
-    rgba(7,93,255,.035) 54%,
-    transparent 72%,
-    rgba(255,90,0,.055)
-  );
-  mix-blend-mode: screen;
-}
-
-.refraction-bar:nth-child(1) { width: 10px; }
-.refraction-bar:nth-child(2) { width: 24px; }
-.refraction-bar:nth-child(3) { width: 14px; }
-.refraction-bar:nth-child(4) { width: 31px; }
-.refraction-bar:nth-child(5) { width: 12px; }
-.refraction-bar:nth-child(6) { width: 21px; }
-.refraction-bar:nth-child(7) { width: 9px; }
 
 @media (min-width: 760px) {
   .reading-veil::before {
-    inset: -28px -34px;
+    inset: -15% -12%;
   }
 
   .refraction-bridge {
-    min-height: clamp(220px, 30vh, 380px);
-  }
-
-  .refraction-bars {
-    width: min(54vw, 650px);
-    height: clamp(180px, 26vh, 310px);
-    gap: 14px;
+    min-height: clamp(150px, 17vh, 240px);
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .refraction-bars {
-    opacity: .42;
-  }
-
-  .refraction-bar {
-    transform: none !important;
-    backdrop-filter: blur(7px) saturate(1.1);
-    -webkit-backdrop-filter: blur(7px) saturate(1.1);
+  .reading-veil::before {
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
   }
 }
