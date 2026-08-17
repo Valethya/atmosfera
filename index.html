@@ -1,485 +1,346 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Atmósfera | Reserva tu Reunión de Asesoría Online</title>
-  <meta name="description" content="Agenda una videollamada personalizada con el equipo de Atmósfera para analizar tu proyecto, objetivos y necesidades de forma ágil y profesional." />
-  
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Jost:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
-</head>
-<body>
-
-  <!-- Cursor -->
-  <div class="cursor" id="cursor"></div>
-  <div class="cursor-ring" id="cursorRing"></div>
-
-  <!-- NAV -->
-  <nav>
-    <a href="#" class="nav-logo">Atmósfera</a>
-    <ul class="nav-links">
-      <li><a href="#como">Cómo trabajamos</a></li>
-      <li><a href="#servicios">Servicios</a></li>
-      <li><a href="#comunidad">Comunidad</a></li>
-      <li><a href="#contacto">Contacto</a></li>
-    </ul>
-  </nav>
-
-  <!-- HERO -->
-  <section class="hero">
-    <div class="hero-bg"></div>
-    <div class="hero-lines"></div>
-
-    <div class="hero-content">
-      <p class="hero-eyebrow">Identidad · Estrategia · Acompañamiento</p>
-
-      <h1 class="hero-title">
-        <span class="a-start">A</span>TMÓSFER<span class="a-end">A</span>
-      </h1>
-
-      <p class="hero-subtitle">
-        Hay negocios que simplemente se sienten bien. Eso no pasa por accidente — es el resultado de que alguien pensó en cada capa de la experiencia, incluso en las que nadie va a notar conscientemente.
-      </p>
-
-      <div class="hero-cta">
-        <a href="#contacto" class="btn-primary">Conversemos</a>
-        <a href="#como" class="btn-ghost">Cómo trabajamos</a>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#f5f5f5" />
+    <title>Atmósfera — Web + agenda</title>
+    <meta
+      name="description"
+      content="Atmósfera crea páginas web que se sienten propias para pequeños negocios y profesionales independientes, con una agenda integrada cuando hace falta."
+    />
+  </head>
+  <body>
+    <div class="site-shell">
+      <div class="color-field" aria-hidden="true">
+        <div class="field-layer field-halo" data-field-layer="halo"></div>
+        <div class="field-layer field-orange" data-field-layer="orange"></div>
+        <div class="field-layer field-red" data-field-layer="red"></div>
+        <div class="field-layer field-blue" data-field-layer="blue"></div>
       </div>
-    </div>
 
-    <div class="hero-scroll">
-      <div class="scroll-line"></div>
-      <span class="scroll-text">Descender</span>
-    </div>
-
-    <div class="hero-number">A</div>
-  </section>
-
-  <!-- MANIFIESTO -->
-  <section class="manifesto">
-    <p class="manifesto-label reveal">Manifiesto</p>
-
-    <div class="manifesto-quote reveal reveal-delay-1">
-      Construimos la capa invisible que hace que un negocio se sienta <em>único</em> — lo visible y lo invisible, respirando juntos.
-    </div>
-
-    <div class="manifesto-body reveal reveal-delay-2">
-      <p>
-        La mayoría trabaja lo evidente. Nosotros trabajamos lo que está debajo: los valores reales del negocio, la coherencia entre lo que dice y lo que hace, la relación emocional que construye con sus clientes <strong>sin que nadie lo nombre explícitamente.</strong>
-      </p>
-      <p>
-        No entregamos soluciones genéricas que son fáciles de operar pero vacías de identidad. Reducimos complejidad sin reducir profundidad.
-      </p>
-      <p>
-        Cuando terminamos, tu negocio queda más claro, más coherente y más tuyo — no más dependiente de nosotros.
-      </p>
-    </div>
-  </section>
-
-  <!-- CÓMO TRABAJAMOS -->
-  <section class="como" id="como">
-    <div class="como-header">
-      <h2 class="como-title reveal">
-        Estar cuando<br>se necesita.<br>No más, no menos.
-      </h2>
-      <p class="como-intro reveal reveal-delay-1">
-        Nuestro modelo de acompañamiento respeta el tiempo y la energía de cada dueño de negocio.
-      </p>
-    </div>
-
-    <div class="como-grid">
-      <div class="como-item reveal">
-        <p class="como-num">01</p>
-        <h3 class="como-item-title">Entendemos primero</h3>
-        <p class="como-item-body">Antes de proponer cualquier cosa, nos sentamos a entender qué es tu negocio realmente — no solo lo que hace, sino lo que siente, lo que proyecta y lo que quiere ser.</p>
-      </div>
-      <div class="como-item reveal reveal-delay-1">
-        <p class="como-num">02</p>
-        <h3 class="como-item-title">Construimos en conjunto</h3>
-        <p class="como-item-body">Iteramos con compromiso y con método. No entregamos un documento y desaparecemos — acompañamos el proceso hasta que algo funciona de verdad, dentro de marcos claros y acordados.</p>
-      </div>
-      <div class="como-item reveal reveal-delay-2">
-        <p class="como-num">03</p>
-        <h3 class="como-item-title">Te dejamos con criterio</h3>
-        <p class="como-item-body">Si volvés, volvés porque sentís que Atmósfera entiende tu negocio como pocos. No porque no tengas otra opción. Esa es la única fidelidad que nos interesa.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- PROMESA -->
-  <section class="promesa">
-    <div class="promesa-bg"></div>
-    <p class="promesa-label reveal">La promesa</p>
-    <blockquote class="promesa-text reveal reveal-delay-1">
-      <span class="promesa-line">Hacemos que tu negocio</span>
-      <span class="promesa-line">se sienta como <span class="promesa-accent">lo que realmente es,</span></span>
-      <span class="promesa-line">sin que tengas que dejar de hacer</span>
-      <span class="promesa-line">lo que te corresponde.</span>
-    </blockquote>
-    <div class="promesa-divider reveal"></div>
-    <p class="promesa-sub reveal reveal-delay-1">
-      Tu energía es limitada. Cada minuto que gastás resolviendo algo que no es tu especialidad es un minuto que le robás a lo que realmente mueve tu negocio. Atmósfera existe para absorber esa fricción.
-    </p>
-  </section>
-
-  <!-- SERVICIOS -->
-  <section class="servicios" id="servicios">
-    <p class="servicios-label reveal">Lo que hacemos</p>
-    <div class="servicios-list">
-      <div class="servicio-item reveal">
-        <span class="servicio-num">01</span>
-        <span class="servicio-name">Identidad de marca</span>
-        <span class="servicio-arrow">→</span>
-      </div>
-      <div class="servicio-item reveal reveal-delay-1">
-        <span class="servicio-num">02</span>
-        <span class="servicio-name">Estrategia y posicionamiento</span>
-        <span class="servicio-arrow">→</span>
-      </div>
-      <div class="servicio-item reveal reveal-delay-2">
-        <span class="servicio-num">03</span>
-        <span class="servicio-name">Presencia digital</span>
-        <span class="servicio-arrow">→</span>
-      </div>
-      <div class="servicio-item reveal reveal-delay-3">
-        <span class="servicio-num">04</span>
-        <span class="servicio-name">Conceptos de negocio</span>
-        <span class="servicio-arrow">→</span>
-      </div>
-    </div>
-  </section>
-
-  <!-- COMUNIDAD -->
-  <section class="comunidad" id="comunidad">
-    <div class="comunidad-visual reveal">
-      <canvas class="comunidad-canvas" id="nieblaCanvas"></canvas>
-    </div>
-
-    <div class="comunidad-content">
-      <p class="comunidad-label reveal">Comunidad</p>
-      <h2 class="comunidad-title reveal reveal-delay-1">
-        Negocios distintos.<br>Un mismo cuidado<br>por la identidad.
-      </h2>
-      <p class="comunidad-body reveal reveal-delay-2">
-        Construimos un espacio entre quienes trabajan con Atmósfera. Negocios que quizás comparten rubro pero nunca serán lo mismo — que pueden nutrirse mutuamente precisamente porque cada uno tiene una identidad clara y propia.
-      </p>
-      <a href="#contacto" class="btn-ghost reveal reveal-delay-3" style="color: var(--texto-suave);">Saber más sobre la comunidad</a>
-    </div>
-  </section>
-
-  <!-- CIERRE (CON FORMULARIO DE AGENDAMIENTO INTEGRADO) -->
-  <section class="cierre" id="contacto">
-    <div class="cierre-container">
-      <h2 class="cierre-title reveal">
-        ¿Tu negocio tiene algo<br>que todavía no has podido<br>comunicar del todo?
-      </h2>
-      <p class="cierre-sub reveal reveal-delay-1" style="margin-bottom: 3rem;">
-        Ese es exactamente el lugar desde donde empezamos a trabajar juntos. Agenda una cita online con nosotros a continuación.
-      </p>
-
-      <!-- Booking Form Widget -->
-      <div class="booking-widget-card reveal reveal-delay-2" id="booking-widget">
-        
-        <!-- Step Progress Indicator -->
-        <div class="step-progress-wrapper" id="step-progress-wrapper">
-          <div class="progress-bar-container">
-            <div class="progress-bar-fill" id="progress-bar-fill" style="width: 25%;"></div>
-          </div>
-          <div class="steps-indicators">
-            <div class="step-indicator active" id="indicator-1" data-step="1">
-              <span class="step-number">1</span>
-              <span class="step-label">Identidad</span>
-            </div>
-            <div class="step-indicator" id="indicator-2" data-step="2">
-              <span class="step-number">2</span>
-              <span class="step-label">Horario</span>
-            </div>
-            <div class="step-indicator" id="indicator-3" data-step="3">
-              <span class="step-number">3</span>
-              <span class="step-label">Contacto</span>
-            </div>
-            <div class="step-indicator" id="indicator-4" data-step="4">
-              <span class="step-number">4</span>
-              <span class="step-label">Detalles</span>
-            </div>
-          </div>
+      <div class="optical-window" aria-hidden="true">
+        <div class="optical-field">
+          <div class="field-layer field-halo" data-optical-layer="halo"></div>
+          <div class="field-layer field-orange" data-optical-layer="orange"></div>
+          <div class="field-layer field-red" data-optical-layer="red"></div>
+          <div class="field-layer field-blue" data-optical-layer="blue"></div>
         </div>
-
-        <form id="progressive-form" class="progressive-form" novalidate>
-          
-          <!-- STEP 1: IDENTITY -->
-          <div class="form-step-panel active" id="step-panel-1">
-            <div class="step-header">
-              <h3>¿Con quién conversaremos?</h3>
-              <p>Comencemos por conocer tu nombre para personalizar el resto del formulario.</p>
-            </div>
-            
-            <div class="form-group-row">
-              <div class="form-group">
-                <label for="input-firstname">Nombre</label>
-                <div class="input-wrapper">
-                  <input type="text" id="input-firstname" name="firstName" placeholder="Ej. Juan" required />
-                  <span class="focus-border"></span>
-                </div>
-                <span class="error-message" id="error-firstname"></span>
-              </div>
-              
-              <div class="form-group">
-                <label for="input-lastname">Apellido</label>
-                <div class="input-wrapper">
-                  <input type="text" id="input-lastname" name="lastName" placeholder="Ej. Pérez" required />
-                  <span class="focus-border"></span>
-                </div>
-                <span class="error-message" id="error-lastname"></span>
-              </div>
-            </div>
-
-            <div class="step-footer">
-              <button type="button" class="btn btn-primary btn-next" id="btn-goto-step-2">
-                <span>Continuar</span>
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-              </button>
-            </div>
-          </div>
-
-          <!-- STEP 2: SCHEDULING -->
-          <div class="form-step-panel" id="step-panel-2">
-            <div class="step-header">
-              <h3>¡Hola, <span id="display-client-name" class="highlight-name"></span>! Elige tu horario</h3>
-              <p>Selecciona un día de la semana y una hora disponible para coordinar nuestra reunión online de 30 minutos.</p>
-            </div>
-
-            <div class="calendar-selection-container">
-              <div class="calendar-navigation">
-                <button type="button" class="btn-calendar-nav" id="btn-calendar-prev" aria-label="Semana anterior">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"></polyline></svg>
-                </button>
-                <span class="current-month-display" id="display-current-month">Julio 2026</span>
-                <button type="button" class="btn-calendar-nav" id="btn-calendar-next" aria-label="Semana siguiente">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
-                </button>
-              </div>
-
-              <!-- Date Buttons Slider -->
-              <div class="dates-slider-wrapper" id="dates-slider-wrapper">
-                <!-- Filled dynamically -->
-              </div>
-
-              <input type="hidden" id="input-selected-date" name="selectedDate" />
-              <input type="hidden" id="input-selected-time" name="selectedTime" />
-            </div>
-
-            <!-- Available Hours Results -->
-            <div class="slots-container">
-              <h4 class="slots-title">Horas disponibles para el <span id="display-selected-date-long">lunes 6 de julio</span>:</h4>
-              
-              <!-- Loader -->
-              <div class="slots-loader" id="slots-loader">
-                <div class="spinner"></div>
-                <p>Consultando disponibilidad...</p>
-              </div>
-
-              <!-- Nearest Slot Suggestion Alert -->
-              <div class="nearest-slot-banner hidden" id="nearest-slot-banner">
-                <div class="banner-icon">📅</div>
-                <div class="banner-text">
-                  <strong>Hora más próxima disponible:</strong> <span id="display-nearest-time">09:00</span>
-                </div>
-                <button type="button" class="btn-select-nearest-text" id="btn-select-nearest">Seleccionar</button>
-              </div>
-
-              <!-- Hour Buttons Grid -->
-              <div class="slots-grid" id="slots-grid">
-                <!-- Filled dynamically -->
-              </div>
-
-              <!-- Empty Slots Warning / Suggestion -->
-              <div class="slots-empty-state hidden" id="slots-empty-state">
-                <div class="empty-icon">📅</div>
-                <p class="empty-message">No se encontraron citas libres para esta fecha.</p>
-                
-                <div class="suggestion-box" id="suggestion-box">
-                  <p class="suggestion-title">Te sugerimos nuestra siguiente cita libre:</p>
-                  <div class="suggestion-card">
-                    <div class="suggestion-details">
-                      <span class="suggestion-date" id="suggested-slot-date">Martes 7 de Julio</span>
-                      <span class="suggestion-time" id="suggested-slot-time">09:30 AM</span>
-                    </div>
-                    <button type="button" class="btn-accept-suggestion-action" id="btn-accept-suggestion">Aceptar sugerencia</button>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Custom Client Suggestion Option -->
-              <div class="custom-suggestion-toggle-container">
-                <button type="button" class="btn-toggle-custom-suggestion" id="btn-toggle-custom-suggestion">
-                  ¿Ninguno de estos horarios te acomoda? Sugiere tu fecha y hora preferida
-                </button>
-                
-                <div class="custom-suggestion-form-fields hidden" id="custom-suggestion-fields">
-                  <div class="form-group-row" style="margin-top: 1.25rem; margin-bottom: 0;">
-                    <div class="form-group" style="margin-bottom: 0;">
-                      <label for="input-custom-date">Fecha sugerida</label>
-                      <div class="input-wrapper">
-                        <input type="date" id="input-custom-date" name="customDate" />
-                      </div>
-                    </div>
-                    <div class="form-group" style="margin-bottom: 0;">
-                      <label for="input-custom-time">Hora sugerida</label>
-                      <div class="input-wrapper">
-                        <input type="time" id="input-custom-time" name="customTime" />
-                      </div>
-                    </div>
-                  </div>
-                  <button type="button" class="btn btn-secondary btn-sm" id="btn-apply-custom-suggestion" style="margin-top: 1.25rem; width: 100%;">
-                    Aplicar fecha y hora sugerida
-                  </button>
-                </div>
-              </div>
-
-              <span class="error-message centered" id="error-slot-selection"></span>
-            </div>
-
-            <div class="step-footer">
-              <button type="button" class="btn btn-secondary btn-back" id="btn-back-to-step-1">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
-                <span>Atrás</span>
-              </button>
-              <button type="button" class="btn btn-primary btn-next" id="btn-goto-step-3">
-                <span>Continuar</span>
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-              </button>
-            </div>
-          </div>
-
-          <!-- STEP 3: CONTACT DETAILS -->
-          <div class="form-step-panel" id="step-panel-3">
-            <div class="step-header">
-              <h3>¿Dónde nos contactamos, <span id="display-client-name-step3" class="highlight-name"></span>?</h3>
-              <p>Necesitamos tu correo y número celular para enviarte la confirmación y el enlace de la reunión.</p>
-            </div>
-
-            <div class="form-group-row">
-              <div class="form-group">
-                <label for="input-email">Correo Electrónico</label>
-                <div class="input-wrapper">
-                  <input type="email" id="input-email" name="email" placeholder="ejemplo@correo.com" required />
-                  <span class="focus-border"></span>
-                </div>
-                <span class="error-message" id="error-email"></span>
-              </div>
-
-              <div class="form-group">
-                <label for="input-phone">Número de Celular</label>
-                <div class="input-wrapper phone-wrapper">
-                  <span class="phone-prefix">+56</span>
-                  <input type="tel" id="input-phone" name="phone" placeholder="9 1234 5678" required />
-                  <span class="focus-border"></span>
-                </div>
-                <span class="error-message" id="error-phone"></span>
-              </div>
-            </div>
-
-            <div class="step-footer">
-              <button type="button" class="btn btn-secondary btn-back" id="btn-back-to-step-2">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
-                <span>Atrás</span>
-              </button>
-              <button type="button" class="btn btn-primary btn-next" id="btn-goto-step-4">
-                <span>Continuar</span>
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-              </button>
-            </div>
-          </div>
-
-          <!-- STEP 4: DETALLES -->
-          <div class="form-step-panel" id="step-panel-4">
-            <div class="step-header">
-              <h3>Cuéntanos sobre tu negocio o proyecto</h3>
-              <p>¿Qué quieres hacer o qué necesitas? Nos servirá para preparar la reunión de forma más efectiva.</p>
-            </div>
-
-            <div class="form-group">
-              <label for="input-notes">¿Qué necesitas de Atmósfera?</label>
-              <div class="input-wrapper">
-                <textarea id="input-notes" name="notes" placeholder="Cuéntanos brevemente tus objetivos, plazos o lo que esperas lograr..." rows="4" required></textarea>
-                <span class="focus-border"></span>
-              </div>
-              <span class="error-message" id="error-notes"></span>
-            </div>
-
-            <!-- Preview Card -->
-            <div class="booking-preview-card">
-              <h5 class="preview-title">Resumen de la Cita</h5>
-              <div class="preview-details-grid">
-                <div class="preview-item">
-                  <span class="preview-label">Fecha y Hora</span>
-                  <span class="preview-value" id="preview-date-time">-</span>
-                </div>
-                <div class="preview-item">
-                  <span class="preview-label">Participante</span>
-                  <span class="preview-value" id="preview-participant">-</span>
-                </div>
-              </div>
-            </div>
-
-            <div class="step-footer">
-              <button type="button" class="btn btn-secondary btn-back" id="btn-back-to-step-3">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
-                <span>Atrás</span>
-              </button>
-              <button type="submit" class="btn btn-primary" id="btn-submit-booking" style="background: var(--texto); color: var(--blanco);">
-                <span>Confirmar y Reservar</span>
-                <div class="btn-spinner hidden" id="submit-spinner"></div>
-              </button>
-            </div>
-          </div>
-
-          <!-- SUCCESS PANEL -->
-          <div class="form-step-panel" id="step-panel-success">
-            <div class="success-header">
-              <div class="success-icon-wrapper">
-                <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="success-check-icon"><polyline points="20 6 9 17 4 12"></polyline></svg>
-              </div>
-              <h3>¡Reunión agendada con éxito, <span id="display-success-name"></span>!</h3>
-              <p>Hemos bloqueado el horario y reservado tu espacio en nuestra agenda.</p>
-            </div>
-
-            <div class="success-summary-card">
-              <div class="summary-row">
-                <span class="summary-label">Reunión Online:</span>
-                <span class="summary-value" id="success-date-time">-</span>
-              </div>
-              <div class="summary-row">
-                <span class="summary-label">Consultor:</span>
-                <span class="summary-value">Consultor Atmósfera</span>
-              </div>
-              <div class="summary-row">
-                <span class="summary-label">Confirmación enviada a:</span>
-                <span class="summary-value" id="success-contact-info">-</span>
-              </div>
-            </div>
-
-            <div class="success-footer">
-              <p class="success-notice">Te enviamos una invitación por correo con el enlace para la videollamada.</p>
-              <button type="button" class="btn btn-primary" id="btn-restart-form" style="width: 100%;">Volver a la Landing</button>
-            </div>
-          </div>
-
-        </form>
       </div>
 
+      <svg class="optical-defs" width="0" height="0" aria-hidden="true" focusable="false">
+        <defs>
+          <filter id="optical-displacement" x="-20%" y="-20%" width="140%" height="140%" color-interpolation-filters="sRGB">
+            <feTurbulence
+              id="optical-map-noise"
+              type="fractalNoise"
+              baseFrequency="0.048 0.0018"
+              numOctaves="1"
+              seed="17"
+              stitchTiles="stitch"
+              result="noise"
+            />
+            <feGaussianBlur in="noise" stdDeviation="0.95 0.08" result="softNoise" />
+            <feColorMatrix
+              in="softNoise"
+              type="matrix"
+              values="1 0 0 0 0
+                      0 0 0 0 .5
+                      0 0 0 0 .5
+                      0 0 0 1 0"
+              result="horizontalMap"
+            />
+            <feDisplacementMap
+              id="optical-displacement-map"
+              in="SourceGraphic"
+              in2="horizontalMap"
+              scale="0"
+              xChannelSelector="R"
+              yChannelSelector="G"
+            />
+          </filter>
+        </defs>
+      </svg>
+
+      <header class="site-header">
+        <a class="brand-star" href="#home" aria-label="Atmósfera — inicio"></a>
+        <a class="brand-name" href="#home">Atmosfera</a>
+        <button class="menu-toggle" type="button" aria-label="Abrir menú" aria-expanded="false">
+          <span></span>
+        </button>
+      </header>
+
+      <main>
+        <section class="section hero" id="home" aria-labelledby="hero-title">
+          <div class="hero-center">
+            <div class="hero-title-row">
+              <span class="brand-star" aria-hidden="true"></span>
+              <h1 id="hero-title">Atmosfera</h1>
+            </div>
+            <p class="hero-kicker">Web - agenda</p>
+          </div>
+
+          <div class="hero-bottom">
+            <p class="hero-claim">
+              Tu web y tu agenda,
+              <small>como una sola experiencia</small>
+            </p>
+            <p class="hero-description">
+              Creamos páginas web que se sienten propias para pequeños negocios y profesionales independientes. Si necesitas recibir reservas, la agenda vive dentro de la misma página.
+            </p>
+            <a class="cta" href="#cierre">conversemos</a>
+          </div>
+        </section>
+
+        <section class="section content-section offer" id="construir" aria-labelledby="offer-title">
+          <div class="reading-veil reading-veil--offer">
+            <h2 class="section-index" id="offer-title">
+              <span>01</span>
+              <strong>QUÉ PODEMOS CONSTRUIR</strong>
+            </h2>
+
+            <div class="section-intro reveal">
+              <p class="section-lead">Dos formas de estar presente.<br />Una agenda que se suma <em>cuando hace falta</em>.</p>
+              <p class="section-copy">Partimos de los elementos que ya tienes y definimos cómo debe verse y organizarse tu página según lo que necesitas comunicar y facilitar.</p>
+            </div>
+
+            <div class="editorial-accordion offer-accordion" data-accordion="offer">
+              <details class="editorial-item">
+                <summary>
+                  <span class="accordion-num">01 ·</span>
+                  <span class="accordion-heading"><strong>Página esencial</strong><small>Presencia compacta</small></span>
+                  <span class="accordion-toggle" aria-hidden="true"></span>
+                </summary>
+                <div class="accordion-body">
+                  <p>Una presencia breve y propia con lo indispensable sobre lo que haces, tus medios de contacto y una acción principal clara.</p>
+                  <p class="accordion-note">Enfocada en contactar o agendar</p>
+                </div>
+              </details>
+
+              <details class="editorial-item">
+                <summary>
+                  <span class="accordion-num">02 ·</span>
+                  <span class="accordion-heading"><strong>Landing completa</strong><small>Presencia con recorrido</small></span>
+                  <span class="accordion-toggle" aria-hidden="true"></span>
+                </summary>
+                <div class="accordion-body">
+                  <p>Una página que permite presentar tu trabajo con mayor profundidad: su propuesta, servicios, proceso y razones para confiar.</p>
+                  <p class="accordion-note">Para comprender antes de actuar</p>
+                </div>
+              </details>
+
+              <details class="editorial-item">
+                <summary>
+                  <span class="accordion-num">03 ·</span>
+                  <span class="accordion-heading"><strong>Agenda</strong><small>Para sumar a tu web</small></span>
+                  <span class="accordion-toggle" aria-hidden="true"></span>
+                </summary>
+                <div class="accordion-body">
+                  <p>Tus clientes eligen un servicio y una hora dentro de la misma página, sin sentir que fueron enviados a otro lugar.</p>
+                  <p class="accordion-note">Con una nueva web o una web hecha por nosotros</p>
+                </div>
+              </details>
+            </div>
+          </div>
+        </section>
+
+        <section class="refraction-bridge" id="refraccion" aria-hidden="true"></section>
+
+        <section class="section content-section process" id="proceso" aria-labelledby="process-title">
+          <div class="process-top reading-veil">
+            <h2 class="section-index" id="process-title">
+              <span>02</span>
+              <strong>CÓMO TRABAJAMOS</strong>
+            </h2>
+
+            <div class="section-intro reveal">
+              <p class="section-lead"><em>Comprender</em> antes de construir.</p>
+              <p class="section-copy">No partimos desde una plantilla ni intentamos convertir lo que haces en otra cosa. Primero entendemos lo que ya existe y qué necesita resolver tu página.</p>
+            </div>
+          </div>
+
+          <div class="editorial-accordion process-accordion" data-accordion="process">
+            <details class="editorial-item">
+              <summary>
+                <span class="accordion-num">01</span>
+                <span class="accordion-heading"><strong>Comprendemos</strong></span>
+                <span class="accordion-toggle" aria-hidden="true"></span>
+              </summary>
+              <div class="accordion-body"><p>Conocemos tu trabajo, a las personas que atiendes, los elementos que ya tienes y la acción que necesitas facilitar. Definimos juntos qué debe comunicar la web y qué no necesita agregar.</p></div>
+            </details>
+            <details class="editorial-item">
+              <summary>
+                <span class="accordion-num">02</span>
+                <span class="accordion-heading"><strong>Traducimos</strong></span>
+                <span class="accordion-toggle" aria-hidden="true"></span>
+              </summary>
+              <div class="accordion-body"><p>Definimos cómo organizar el contenido y construimos el estilo visual de la página: colores, tipografías, jerarquías, espacios y ritmo.</p></div>
+            </details>
+            <details class="editorial-item">
+              <summary>
+                <span class="accordion-num">03</span>
+                <span class="accordion-heading"><strong>Construimos</strong></span>
+                <span class="accordion-toggle" aria-hidden="true"></span>
+              </summary>
+              <div class="accordion-body"><p>Desarrollamos la página para que funcione con claridad en cada pantalla e integramos la agenda cuando el proyecto la necesita.</p></div>
+            </details>
+            <details class="editorial-item">
+              <summary>
+                <span class="accordion-num">04</span>
+                <span class="accordion-heading"><strong>Acompañamos</strong></span>
+                <span class="accordion-toggle" aria-hidden="true"></span>
+              </summary>
+              <div class="accordion-body"><p>Revisamos, publicamos y ajustamos contigo. La web puede evolucionar y sumar la agenda más adelante si fue construida por ATMÓSFERA.</p></div>
+            </details>
+          </div>
+        </section>
+
+        <section class="section content-section principle" id="principio" aria-labelledby="principle-title">
+          <div class="principle-top">
+            <h2 class="section-index" id="principle-title">
+              <span>03</span>
+              <strong>NUESTRO PRINCIPIO</strong>
+            </h2>
+          </div>
+
+          <div class="principle-content reading-veil reveal">
+            <p class="principle-lead">Tu página no debería hacer que lo que haces parezca otra cosa.</p>
+            <div class="principle-copy">
+              <p>La coherencia consiste en que cada paso se sienta parte de lo que haces. No inventamos una identidad nueva: entendemos la que ya existe y la llevamos a los textos, la organización y la apariencia de la página.</p>
+              <p>Así, la página, la forma de contactar y la agenda no parecen piezas ensambladas por separado. Se sienten conectadas entre sí y contigo.</p>
+            </div>
+            <blockquote>No diseñamos reglas para controlar decisiones. Diseñamos comprensión para que las decisiones correctas surjan de manera natural.</blockquote>
+          </div>
+        </section>
+
+        <section class="section content-section agenda" id="agenda" aria-labelledby="agenda-title">
+          <div class="agenda-top reading-veil">
+            <h2 class="section-index" id="agenda-title">
+              <span>04</span>
+              <strong>AGENDA EN TU PÁGINA</strong>
+            </h2>
+
+            <div class="section-intro reveal">
+              <p class="section-lead">Reservar debería sentirse parte de la <em>experiencia</em>.</p>
+              <p class="section-copy">La agenda vive dentro de la página construida por ATMÓSFERA. Tus clientes pueden reservar sin sentir que fueron enviados a una herramienta ajena a lo que haces.</p>
+            </div>
+          </div>
+
+          <div class="editorial-accordion agenda-accordion" data-accordion="agenda">
+            <details class="editorial-item">
+              <summary>
+                <span class="accordion-num">01</span>
+                <span class="accordion-heading"><strong>Conoce</strong></span>
+                <span class="accordion-toggle" aria-hidden="true"></span>
+              </summary>
+              <div class="accordion-body"><p>La persona descubre tus servicios y encuentra lo que necesita dentro de tu página.</p></div>
+            </details>
+            <details class="editorial-item">
+              <summary>
+                <span class="accordion-num">02</span>
+                <span class="accordion-heading"><strong>Reserva</strong></span>
+                <span class="accordion-toggle" aria-hidden="true"></span>
+              </summary>
+              <div class="accordion-body"><p>Elige un servicio, revisa los horarios disponibles y agenda sin sentir que salió de tu página.</p></div>
+            </details>
+            <details class="editorial-item">
+              <summary>
+                <span class="accordion-num">03</span>
+                <span class="accordion-heading"><strong>Continúa</strong></span>
+                <span class="accordion-toggle" aria-hidden="true"></span>
+              </summary>
+              <div class="accordion-body"><p>Recibe una confirmación y correos que conservan tu apariencia y tu manera de comunicarte.</p></div>
+            </details>
+          </div>
+
+          <div class="agenda-condition reveal">
+            <p>Puedes sumar la agenda al crear una nueva página con nosotros o más adelante, si ya construimos tu web.</p>
+            <a class="text-link" href="#cierre">Agenda una conversación →</a>
+          </div>
+        </section>
+
+        <section class="section content-section faq" id="preguntas" aria-labelledby="faq-title">
+          <div class="faq-top">
+            <h2 class="section-index" id="faq-title">
+              <span>05</span>
+              <strong>PREGUNTAS FRECUENTES</strong>
+            </h2>
+            <div class="section-intro reveal">
+              <p class="section-lead">Lo importante, explicado <em>con claridad</em>.</p>
+              <p class="section-copy">Estas son algunas de las dudas que conviene resolver antes de comenzar.</p>
+            </div>
+          </div>
+
+          <div class="editorial-accordion faq-accordion" data-accordion="faq">
+            <details class="editorial-item">
+              <summary>
+                <span class="accordion-heading"><strong>¿Necesito tener una identidad de marca completa?</strong></span>
+                <span class="accordion-toggle" aria-hidden="true"></span>
+              </summary>
+              <div class="accordion-body"><p>No. Podemos comenzar con los elementos que ya tengas, incluso si es solamente un logo, y construir desde ahí el estilo visual de tu página. Si necesitas crear o rediseñar un logo, ilustraciones o iconos propios, tendremos que incorporar a un diseñador especializado.</p></div>
+            </details>
+            <details class="editorial-item">
+              <summary>
+                <span class="accordion-heading"><strong>¿Cuál es la diferencia entre una Página esencial y una Landing completa?</strong></span>
+                <span class="accordion-toggle" aria-hidden="true"></span>
+              </summary>
+              <div class="accordion-body"><p>La Página esencial concentra lo indispensable y lleva a una acción clara, como contactar o reservar. La Landing completa permite contar más sobre tu trabajo, tus servicios, tu forma de atender y las razones para elegirte.</p></div>
+            </details>
+            <details class="editorial-item">
+              <summary>
+                <span class="accordion-heading"><strong>¿Puedo contratar solamente la agenda?</strong></span>
+                <span class="accordion-toggle" aria-hidden="true"></span>
+              </summary>
+              <div class="accordion-body"><p>La agenda se ofrece junto con una nueva página web o puede agregarse después a una página que haya sido construida por ATMÓSFERA. No la incorporamos como producto separado en páginas hechas por terceros.</p></div>
+            </details>
+            <details class="editorial-item">
+              <summary>
+                <span class="accordion-heading"><strong>¿La Página esencial siempre cabe en una sola pantalla?</strong></span>
+                <span class="accordion-toggle" aria-hidden="true"></span>
+              </summary>
+              <div class="accordion-body"><p>Está pensada para ser compacta y directa, pero debe adaptarse a cada teléfono, al tamaño del texto y al contenido necesario. Puede extenderse un poco cuando eso mejora la lectura.</p></div>
+            </details>
+          </div>
+        </section>
+
+        <section class="section content-section closing" id="cierre" aria-labelledby="closing-title">
+          <div>
+            <h2 class="section-index" id="closing-title">
+              <span>06</span>
+              <strong>HABLEMOS</strong>
+            </h2>
+          </div>
+
+          <div class="closing-content reading-veil reveal">
+            <p class="closing-lead">Conversemos sobre<br />lo que quieres <em>construir</em>.</p>
+            <p class="closing-copy">Cuéntanos qué haces, qué tienes y qué te gustaría facilitar. No necesitas llegar con todo resuelto.</p>
+            <a class="cta" href="mailto:hola@atmosferastudio.cl">Agenda una conversación ↗</a>
+          </div>
+
+          <div class="closing-coordinates">33° 26' S<br />70° 39' O<br /><br />Santiago, Chile</div>
+        </section>
+      </main>
+
+      <footer class="site-footer">
+        <span class="brand-star" aria-hidden="true"></span>
+        <span>Atmosfera</span>
+        <span>Todo debe sentirse parte de lo que haces</span>
+        <span>© 2026</span>
+      </footer>
+
+      <div class="menu-overlay" aria-hidden="true">
+        <nav class="menu-nav" aria-label="Navegación principal">
+          <a class="menu-link" href="#home">HOME</a>
+          <a class="menu-link" href="#construir">QUÉ PODEMOS CONSTRUIR</a>
+          <a class="menu-link" href="#proceso">CÓMO TRABAJAMOS</a>
+          <a class="menu-link" href="#principio">NUESTRO PRINCIPIO</a>
+          <a class="menu-link" href="#agenda">AGENDA</a>
+          <a class="menu-link" href="#preguntas">PREGUNTAS</a>
+          <a class="menu-link" href="#cierre">HABLEMOS</a>
+        </nav>
+      </div>
     </div>
-  </section>
 
-  <!-- FOOTER -->
-  <footer>
-    <span class="footer-logo">Atmósfera</span>
-    <span class="footer-copy">© 2026 — Identidad que respira</span>
-  </footer>
-
-  <script type="module" src="/src/main.js"></script>
-</body>
+    <script type="module" src="/src/landing-v2.js"></script>
+  </body>
 </html>

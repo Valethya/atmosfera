@@ -1,0 +1,168 @@
+@import './content-expansion.css';
+
+/*
+ * Legibilidad localizada + transición óptica.
+ * El contenido gana un velo radial; la mancha se duplica sólo dentro de una
+ * ventana acotada donde un mapa de desplazamiento horizontal la refracta.
+ */
+.reading-veil {
+  position: relative;
+  isolation: isolate;
+}
+
+.reading-veil::before {
+  content: '';
+  position: absolute;
+  inset: -13% -10%;
+  z-index: -1;
+  pointer-events: none;
+  border-radius: 50%;
+  background: radial-gradient(
+    ellipse at 50% 50%,
+    rgba(245, 245, 245, .34) 0%,
+    rgba(245, 245, 245, .24) 34%,
+    rgba(245, 245, 245, .13) 52%,
+    rgba(245, 245, 245, .055) 66%,
+    rgba(245, 245, 245, 0) 80%
+  );
+  backdrop-filter: blur(9px);
+  -webkit-backdrop-filter: blur(9px);
+  -webkit-mask-image: radial-gradient(
+    ellipse 72% 66% at 50% 50%,
+    #000 0 34%,
+    rgba(0,0,0,.88) 48%,
+    rgba(0,0,0,.48) 62%,
+    rgba(0,0,0,.14) 72%,
+    transparent 84%
+  );
+  mask-image: radial-gradient(
+    ellipse 72% 66% at 50% 50%,
+    #000 0 34%,
+    rgba(0,0,0,.88) 48%,
+    rgba(0,0,0,.48) 62%,
+    rgba(0,0,0,.14) 72%,
+    transparent 84%
+  );
+}
+
+.reading-veil--offer::before {
+  inset: -10% -8%;
+  -webkit-mask-image: radial-gradient(
+    ellipse 78% 72% at 50% 48%,
+    #000 0 30%,
+    rgba(0,0,0,.84) 47%,
+    rgba(0,0,0,.40) 63%,
+    rgba(0,0,0,.10) 73%,
+    transparent 84%
+  );
+  mask-image: radial-gradient(
+    ellipse 78% 72% at 50% 48%,
+    #000 0 30%,
+    rgba(0,0,0,.84) 47%,
+    rgba(0,0,0,.40) 63%,
+    rgba(0,0,0,.10) 73%,
+    transparent 84%
+  );
+}
+
+.reading-veil--message::before {
+  inset: -34% -18%;
+  border-radius: 50%;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(245, 245, 245, .30) 0%,
+    rgba(245, 245, 245, .17) 42%,
+    rgba(245, 245, 245, .06) 62%,
+    rgba(245, 245, 245, 0) 80%
+  );
+  backdrop-filter: blur(7px);
+  -webkit-backdrop-filter: blur(7px);
+  -webkit-mask-image: radial-gradient(ellipse at center, #000 0 36%, rgba(0,0,0,.72) 58%, transparent 82%);
+  mask-image: radial-gradient(ellipse at center, #000 0 36%, rgba(0,0,0,.72) 58%, transparent 82%);
+}
+
+.color-field { z-index: -2; }
+
+.optical-defs {
+  position: absolute;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.optical-window {
+  --optical-top: 24svh;
+  --optical-height: 52svh;
+  position: fixed;
+  top: var(--optical-top);
+  left: 0;
+  width: 100vw;
+  height: var(--optical-height);
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+  opacity: 0;
+  visibility: hidden;
+  contain: paint;
+  will-change: opacity;
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgba(0,0,0,.30) 8%,
+    #000 18%,
+    #000 82%,
+    rgba(0,0,0,.30) 92%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgba(0,0,0,.30) 8%,
+    #000 18%,
+    #000 82%,
+    rgba(0,0,0,.30) 92%,
+    transparent 100%
+  );
+}
+
+.optical-field {
+  position: absolute;
+  top: calc(-1 * var(--optical-top));
+  left: 0;
+  width: 100vw;
+  height: 100svh;
+  overflow: hidden;
+  filter: url(#optical-displacement);
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+.refraction-bridge {
+  position: relative;
+  min-height: clamp(150px, 22svh, 250px);
+  overflow: clip;
+  pointer-events: none;
+}
+
+@media (min-width: 760px) {
+  .reading-veil::before { inset: -15% -12%; }
+
+  .optical-window {
+    --optical-top: 21vh;
+    --optical-height: 58vh;
+  }
+
+  .refraction-bridge {
+    min-height: clamp(170px, 20vh, 280px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reading-veil::before {
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+  }
+
+  .optical-window { display: none; }
+}
