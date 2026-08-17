@@ -1,5 +1,6 @@
 import './landing-v2.css';
 import './nav-gradient.css';
+import './mobile-hero-tuning.css';
 
 const body = document.body;
 const field = document.querySelector('.color-field');
@@ -31,10 +32,10 @@ const easeInOutCubic = t => t < 0.5
 const mobileFrames = [
   {
     id: 'home',
-    halo:   { x: 77, y: 63, sx: 1.30, sy: 1.12, r: 0,  o: .62 },
-    orange: { x: 79, y: 62, sx: 1.12, sy: 1.02, r: 0,  o: .90 },
-    red:    { x: 81, y: 62, sx: .93,  sy: .94,  r: 0,  o: .84 },
-    blue:   { x: 83, y: 63, sx: .66,  sy: .68,  r: 0,  o: 1 },
+    halo:   { x: 82, y: 56, sx: 1.05, sy: .92, r: 0, o: .48 },
+    orange: { x: 84, y: 57, sx: .90,  sy: .84, r: 0, o: .84 },
+    red:    { x: 87, y: 58, sx: .76,  sy: .78, r: 0, o: .78 },
+    blue:   { x: 92, y: 60, sx: .54,  sy: .56, r: 0, o: 1 },
   },
   {
     id: 'construir',
