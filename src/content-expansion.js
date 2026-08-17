@@ -1,5 +1,6 @@
 import './content-expansion.css';
 import './mobile-type-legibility.css';
+import './safari-optical-fallback.js';
 
 const accordionGroups = document.querySelectorAll('[data-accordion]');
 
