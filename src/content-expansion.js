@@ -1,4 +1,5 @@
 import './content-expansion.css';
+import './mobile-type-legibility.css';
 
 const accordionGroups = document.querySelectorAll('[data-accordion]');
 
