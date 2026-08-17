@@ -1,7 +1,7 @@
 import { defineConfig } from 'vite';
 
 const siteUrl = 'https://www.atmosferastudio.cl/';
-const title = 'Atmósfera | Diseño web y agenda para pequeños negocios';
+const title = 'Diseño web para pequeños negocios en Santiago | Atmósfera';
 const description = 'Diseñamos y desarrollamos páginas web en Santiago para pequeños negocios y profesionales independientes, con agenda integrada cuando el proyecto la necesita.';
 
 const structuredData = {
@@ -44,6 +44,18 @@ function seoFoundation() {
         .replace(
           /<meta\s+name="description"[\s\S]*?\/>/i,
           `<meta name="description" content="${description}" />`,
+        )
+        .replace(
+          '<p class="hero-kicker">Web - agenda</p>',
+          '<p class="hero-kicker">Diseño web · agenda</p>',
+        )
+        .replace(
+          /<p class="hero-description">[\s\S]*?<\/p>/i,
+          `<p class="hero-description">\n              Desde Santiago, diseñamos y desarrollamos páginas web que se sienten propias para pequeños negocios y profesionales independientes. Si necesitas recibir reservas, la agenda vive dentro de la misma página.\n            </p>`,
+        )
+        .replace(
+          'Partimos de los elementos que ya tienes y definimos cómo debe verse y organizarse tu página según lo que necesitas comunicar y facilitar.',
+          'Partimos de los elementos que ya tienes y definimos cómo debe verse y organizarse tu página web según lo que necesitas comunicar y facilitar.',
         );
 
       return {
