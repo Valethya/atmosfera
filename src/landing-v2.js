@@ -1,12 +1,15 @@
 import './landing-v2.css';
 import './nav-gradient.css';
 import './mobile-hero-tuning.css';
+import './refraction-experiment.css';
 
 const body = document.body;
 const field = document.querySelector('.color-field');
 const menuToggle = document.querySelector('.menu-toggle');
 const menuOverlay = document.querySelector('.menu-overlay');
 const menuLinks = document.querySelectorAll('.menu-link');
+const refractionBridge = document.querySelector('.refraction-bridge');
+const refractionBars = [...document.querySelectorAll('.refraction-bar')];
 const reducedMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
 
 const layers = Object.fromEntries(
@@ -45,6 +48,13 @@ const mobileFrames = [
     blue:   { x: 67, y: 58, sx: 1.06, sy: 1.18, r: 6,   o: .94 },
   },
   {
+    id: 'refraccion',
+    halo:   { x: 43, y: 49, sx: 1.96, sy: 1.28, r: -10, o: .55 },
+    orange: { x: 35, y: 43, sx: 1.70, sy: .92,  r: -17, o: .77 },
+    red:    { x: 50, y: 51, sx: 1.44, sy: 1.02, r: -9,  o: .74 },
+    blue:   { x: 63, y: 57, sx: 1.03, sy: .84,  r: 10,  o: .92 },
+  },
+  {
     id: 'proceso',
     halo:   { x: 30, y: 49, sx: 1.95, sy: 1.35, r: -10, o: .54 },
     orange: { x: 23, y: 45, sx: 1.72, sy: 1.02, r: -15, o: .75 },
@@ -74,6 +84,13 @@ const desktopFrames = [
     orange: { x: 54, y: 40, sx: 1.38, sy: 1.14, r: -8,  o: .76 },
     red:    { x: 61, y: 47, sx: 1.25, sy: 1.34, r: -11, o: .74 },
     blue:   { x: 66, y: 57, sx: 1.02, sy: 1.12, r: 5,   o: .92 },
+  },
+  {
+    id: 'refraccion',
+    halo:   { x: 45, y: 48, sx: 1.82, sy: 1.22, r: -9,  o: .53 },
+    orange: { x: 38, y: 43, sx: 1.58, sy: .90,  r: -15, o: .74 },
+    red:    { x: 50, y: 50, sx: 1.36, sy: .98,  r: -8,  o: .71 },
+    blue:   { x: 61, y: 56, sx: .98,  sy: .82,  r: 9,   o: .89 },
   },
   {
     id: 'proceso',
@@ -223,6 +240,45 @@ function requestFieldUpdate({ immediate = false } = {}) {
   }
 }
 
+function updateRefraction() {
+  if (!refractionBridge || !refractionBars.length) return;
+
+  if (reducedMotionQuery.matches) {
+    refractionBridge.style.setProperty('--refraction-opacity', '.42');
+    refractionBridge.style.setProperty('--refraction-blur', '7px');
+    refractionBridge.style.setProperty('--refraction-saturation', '1.1');
+    refractionBars.forEach(bar => { bar.style.transform = 'none'; });
+    return;
+  }
+
+  const rect = refractionBridge.getBoundingClientRect();
+  const viewport = window.innerHeight;
+  const travel = rect.height + viewport * .84;
+  const progress = clamp((viewport * .92 - rect.top) / Math.max(1, travel));
+  const peak = Math.sin(progress * Math.PI);
+
+  refractionBridge.style.setProperty('--refraction-opacity', (.12 + peak * .78).toFixed(3));
+  refractionBridge.style.setProperty('--refraction-blur', `${(4 + peak * 10).toFixed(2)}px`);
+  refractionBridge.style.setProperty('--refraction-saturation', (1.04 + peak * .32).toFixed(3));
+
+  refractionBars.forEach(bar => {
+    const shift = Number(bar.dataset.shift || 0);
+    const lift = Number(bar.dataset.lift || 0);
+    const stretch = Number(bar.dataset.stretch || 0);
+    const x = shift * peak;
+    const y = lift * (.35 + peak * .65);
+    const scaleX = 1 + stretch * peak;
+    const scaleY = 1 + .04 * peak;
+
+    bar.style.transform = `translate3d(${x.toFixed(2)}px, ${y.toFixed(2)}px, 0) scale(${scaleX.toFixed(4)}, ${scaleY.toFixed(4)})`;
+  });
+}
+
+function updateScrollEffects({ immediate = false } = {}) {
+  requestFieldUpdate({ immediate });
+  updateRefraction();
+}
+
 function setMenu(open) {
   body.classList.toggle('menu-open', open);
   menuToggle?.setAttribute('aria-expanded', String(open));
@@ -261,12 +317,12 @@ if ('IntersectionObserver' in window) {
   reveals.forEach(element => element.classList.add('is-visible'));
 }
 
-window.addEventListener('scroll', () => requestFieldUpdate(), { passive: true });
-window.addEventListener('resize', () => requestFieldUpdate({ immediate: true }));
-window.addEventListener('load', () => requestFieldUpdate({ immediate: true }));
-reducedMotionQuery.addEventListener?.('change', () => requestFieldUpdate({ immediate: true }));
+window.addEventListener('scroll', () => updateScrollEffects(), { passive: true });
+window.addEventListener('resize', () => updateScrollEffects({ immediate: true }));
+window.addEventListener('load', () => updateScrollEffects({ immediate: true }));
+reducedMotionQuery.addEventListener?.('change', () => updateScrollEffects({ immediate: true }));
 
-requestFieldUpdate({ immediate: true });
+updateScrollEffects({ immediate: true });
 requestAnimationFrame(() => {
   body.classList.add('loaded');
 
