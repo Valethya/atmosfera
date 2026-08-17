@@ -9,12 +9,20 @@ const menuToggle = document.querySelector('.menu-toggle');
 const menuOverlay = document.querySelector('.menu-overlay');
 const menuLinks = document.querySelectorAll('.menu-link');
 const refractionBridge = document.querySelector('.refraction-bridge');
-const refractionBars = [...document.querySelectorAll('.refraction-bar')];
+const opticalWindow = document.querySelector('.optical-window');
+const displacementMap = document.querySelector('#optical-displacement-map');
 const reducedMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
 
 const layers = Object.fromEntries(
   [...document.querySelectorAll('[data-field-layer]')].map(element => [
     element.dataset.fieldLayer,
+    element,
+  ]),
+);
+
+const opticalLayers = Object.fromEntries(
+  [...document.querySelectorAll('[data-optical-layer]')].map(element => [
+    element.dataset.opticalLayer,
     element,
   ]),
 );
@@ -164,8 +172,7 @@ const currentStates = {};
 let targetStates = {};
 let fieldAnimationFrame = 0;
 
-function applyLayerState(name, state) {
-  const element = layers[name];
+function applyStateToElement(element, state) {
   if (!element || !state) return;
 
   element.style.transform = [
@@ -174,6 +181,11 @@ function applyLayerState(name, state) {
     `scale(${state.sx.toFixed(4)}, ${state.sy.toFixed(4)})`,
   ].join(' ');
   element.style.opacity = state.o.toFixed(3);
+}
+
+function applyLayerState(name, state) {
+  applyStateToElement(layers[name], state);
+  applyStateToElement(opticalLayers[name], state);
 }
 
 function cloneState(state) {
@@ -241,37 +253,26 @@ function requestFieldUpdate({ immediate = false } = {}) {
 }
 
 function updateRefraction() {
-  if (!refractionBridge || !refractionBars.length) return;
+  if (!refractionBridge || !opticalWindow || !displacementMap) return;
 
   if (reducedMotionQuery.matches) {
-    refractionBridge.style.setProperty('--refraction-opacity', '.42');
-    refractionBridge.style.setProperty('--refraction-blur', '7px');
-    refractionBridge.style.setProperty('--refraction-saturation', '1.1');
-    refractionBars.forEach(bar => { bar.style.transform = 'none'; });
+    opticalWindow.style.opacity = '0';
+    opticalWindow.style.visibility = 'hidden';
+    displacementMap.setAttribute('scale', '0');
     return;
   }
 
   const rect = refractionBridge.getBoundingClientRect();
   const viewport = window.innerHeight;
-  const travel = rect.height + viewport * .84;
-  const progress = clamp((viewport * .92 - rect.top) / Math.max(1, travel));
+  const travel = rect.height + viewport * .92;
+  const progress = clamp((viewport * .96 - rect.top) / Math.max(1, travel));
   const peak = Math.sin(progress * Math.PI);
+  const shaped = Math.pow(peak, 1.18);
+  const active = shaped > .018;
 
-  refractionBridge.style.setProperty('--refraction-opacity', (.12 + peak * .78).toFixed(3));
-  refractionBridge.style.setProperty('--refraction-blur', `${(4 + peak * 10).toFixed(2)}px`);
-  refractionBridge.style.setProperty('--refraction-saturation', (1.04 + peak * .32).toFixed(3));
-
-  refractionBars.forEach(bar => {
-    const shift = Number(bar.dataset.shift || 0);
-    const lift = Number(bar.dataset.lift || 0);
-    const stretch = Number(bar.dataset.stretch || 0);
-    const x = shift * peak;
-    const y = lift * (.35 + peak * .65);
-    const scaleX = 1 + stretch * peak;
-    const scaleY = 1 + .04 * peak;
-
-    bar.style.transform = `translate3d(${x.toFixed(2)}px, ${y.toFixed(2)}px, 0) scale(${scaleX.toFixed(4)}, ${scaleY.toFixed(4)})`;
-  });
+  opticalWindow.style.visibility = active ? 'visible' : 'hidden';
+  opticalWindow.style.opacity = active ? (shaped * .92).toFixed(3) : '0';
+  displacementMap.setAttribute('scale', (shaped * 46).toFixed(2));
 }
 
 function updateScrollEffects({ immediate = false } = {}) {
