@@ -1,4 +1,5 @@
 name: Temporary Lighthouse A/B audit
+run-name: Atmósfera Lighthouse A/B
 
 on:
   push:
