@@ -7,9 +7,9 @@ const production = {
   url: 'https://www.atmosferastudio.cl/',
 };
 const variant = {
-  id: 'system-font',
-  url: 'https://atmosfera-git-perf-ab-system-font-valethyas-projects.vercel.app/',
-  shareUrl: 'https://atmosfera-git-perf-ab-system-font-valethyas-projects.vercel.app/?_vercel_share=bXuZjqkBWAXNXGPJ7zCndjgW08fao2Ip',
+  id: 'no-field-fade',
+  url: 'https://atmosfera-git-perf-ab-no-field-fade-valethyas-projects.vercel.app/',
+  shareUrl: 'https://atmosfera-git-perf-ab-no-field-fade-valethyas-projects.vercel.app/?_vercel_share=YiU837If4m33bF4TZIrYpkdPbuQvqDhx',
 };
 
 const rounds = 5;
