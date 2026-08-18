@@ -52,6 +52,7 @@ function fontLoadingHints() {
   };
 }
 
+// A/B control branch: behavior intentionally identical to production.
 export default defineConfig({
   plugins: [fontLoadingHints()],
 });
