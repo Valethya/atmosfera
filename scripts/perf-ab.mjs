@@ -5,9 +5,9 @@ import lighthouse from 'lighthouse';
 
 const production = { id: 'production', url: 'https://www.atmosferastudio.cl/' };
 const variant = {
-  id: 'no-field-fade',
-  url: 'https://atmosfera-git-perf-ab-no-field-fade-valethyas-projects.vercel.app/',
-  shareUrl: 'https://atmosfera-git-perf-ab-no-field-fade-valethyas-projects.vercel.app/?_vercel_share=YiU837If4m33bF4TZIrYpkdPbuQvqDhx',
+  id: 'system-font',
+  url: 'https://atmosfera-git-perf-ab-system-font-valethyas-projects.vercel.app/',
+  shareUrl: 'https://atmosfera-git-perf-ab-system-font-valethyas-projects.vercel.app/?_vercel_share=hbxOthjQDyRDvGxNp6xRYODvOybGgAd4',
 };
 const runs = 3;
 
@@ -101,7 +101,8 @@ for (const item of summaries) console.log(JSON.stringify(item));
 console.log(JSON.stringify({
   variant: variant.id,
   scoreDelta: summaries[1].medianScore - summaries[0].medianScore,
-  speedIndexDeltaMs: summaries[1].medianSpeedIndexMs - summaries[0].medianSpeedIndexMs,
+  fcpDeltaMs: summaries[1].medianFcpMs - summaries[0].medianFcpMs,
   lcpDeltaMs: summaries[1].medianLcpMs - summaries[0].medianLcpMs,
+  speedIndexDeltaMs: summaries[1].medianSpeedIndexMs - summaries[0].medianSpeedIndexMs,
 }));
 console.log('ATMOSFERA_LH_RESULTS_END');
