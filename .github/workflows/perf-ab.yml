@@ -9,6 +9,11 @@ on:
     branches:
       - master
 
+permissions:
+  contents: read
+  issues: write
+  pull-requests: write
+
 jobs:
   audit:
     runs-on: ubuntu-latest
@@ -81,6 +86,7 @@ jobs:
             const sorted = [...values].sort((a, b) => a - b);
             return sorted[Math.floor(sorted.length / 2)];
           };
+          const results = [];
 
           console.log('ATMOSFERA_AB_RESULTS_BEGIN');
           for (const variant of variants) {
@@ -102,10 +108,41 @@ jobs:
               medianTbtMs: median(metrics.tbt),
               medianCls: median(metrics.cls),
             };
+            results.push(result);
             console.log(JSON.stringify(result));
           }
+          fs.writeFileSync('ab-results.json', JSON.stringify(results, null, 2));
           console.log('ATMOSFERA_AB_RESULTS_END');
           NODE
+
+      - name: Post results to temporary PR
+        if: success()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          node <<'NODE'
+          const fs = require('fs');
+          const results = JSON.parse(fs.readFileSync('ab-results.json', 'utf8'));
+          const labels = {
+            baseline: 'Producción',
+            'no-refraction': 'Sin refracción óptica',
+            'no-field-blur': 'Sin blur de la mancha',
+            'minimal-effects': 'Efectos mínimos',
+          };
+          const fmt = n => Number.isFinite(n) ? Math.round(n) : 'n/a';
+          const lines = [
+            '## Resultado temporal Lighthouse A/B',
+            '',
+            '| Variante | Runs | Mediana | FCP | LCP | Speed Index | TBT | CLS |',
+            '|---|---:|---:|---:|---:|---:|---:|---:|',
+          ];
+          for (const r of results) {
+            lines.push(`| ${labels[r.variant]} | ${r.scores.join(' / ')} | **${r.medianScore}** | ${fmt(r.medianFcpMs)} ms | ${fmt(r.medianLcpMs)} ms | ${fmt(r.medianSpeedIndexMs)} ms | ${fmt(r.medianTbtMs)} ms | ${Number.isFinite(r.medianCls) ? r.medianCls.toFixed(3) : 'n/a'} |`);
+          }
+          lines.push('', 'Prueba diagnóstica únicamente. No fusionar este PR.');
+          fs.writeFileSync('ab-comment.md', lines.join('\n'));
+          NODE
+          gh pr comment 7 --body-file ab-comment.md
 
       - uses: actions/upload-artifact@v4
         if: always()
