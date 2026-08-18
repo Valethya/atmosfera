@@ -9,9 +9,9 @@ const targets = [
     url: 'https://www.atmosferastudio.cl/',
   },
   {
-    id: 'control-preview',
-    url: 'https://atmosfera-git-perf-ab-control-valethyas-projects.vercel.app/',
-    shareUrl: 'https://atmosfera-git-perf-ab-control-valethyas-projects.vercel.app/?_vercel_share=wl48d8EulwbiGUqkpWDMWcptZJxeZ8Um',
+    id: 'no-refraction',
+    url: 'https://atmosfera-git-perf-ab-no-refraction-valethyas-projects.vercel.app/',
+    shareUrl: 'https://atmosfera-git-perf-ab-no-refraction-valethyas-projects.vercel.app/?_vercel_share=YnjZeKJrsvlYbs7K9GqxEs1cyte254js',
   },
 ];
 
