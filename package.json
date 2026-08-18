@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "prebuild": "npm install --no-save --package-lock=false puppeteer@latest lighthouse@latest && node scripts/perf-ab.mjs",
     "build": "vite build",
     "preview": "vite preview"
   },
