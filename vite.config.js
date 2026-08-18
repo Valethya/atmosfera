@@ -3,6 +3,7 @@ import { defineConfig } from 'vite';
 const googleFontStylesheet =
   'https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600&display=swap';
 const googleFontImport = `@import url('${googleFontStylesheet}');`;
+const experimentStyle = ':root{font-family:Arial,sans-serif!important}';
 
 function fontLoadingHints() {
   return {
@@ -26,25 +27,8 @@ function fontLoadingHints() {
     transformIndexHtml() {
       return [
         {
-          tag: 'link',
-          attrs: { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
-          injectTo: 'head-prepend',
-        },
-        {
-          tag: 'link',
-          attrs: {
-            rel: 'preconnect',
-            href: 'https://fonts.gstatic.com',
-            crossorigin: '',
-          },
-          injectTo: 'head-prepend',
-        },
-        {
-          tag: 'link',
-          attrs: {
-            rel: 'stylesheet',
-            href: googleFontStylesheet,
-          },
+          tag: 'style',
+          children: experimentStyle,
           injectTo: 'head-prepend',
         },
       ];
