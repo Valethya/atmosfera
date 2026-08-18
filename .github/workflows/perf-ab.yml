@@ -1,0 +1,110 @@
+name: Temporary Lighthouse A/B audit
+
+on:
+  push:
+    branches:
+      - tooling/lighthouse-ab-runner
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install Lighthouse
+        run: npm install --global lighthouse
+
+      - name: Authenticate Vercel preview URLs
+        env:
+          SHARE_NO_REFRACTION: "https://atmosfera-git-perf-ab-no-refraction-valethyas-projects.vercel.app/?_vercel_share=3DdpTg23X3rFBJkJCnPi01NGQwHiRs8r"
+          SHARE_NO_FIELD_BLUR: "https://atmosfera-git-perf-ab-no-field-blur-valethyas-projects.vercel.app/?_vercel_share=Aq3Va6IE745aquaKqAQI8pHMN95PRqYG"
+          SHARE_MINIMAL_EFFECTS: "https://atmosfera-git-perf-ab-minimal-effects-valethyas-projects.vercel.app/?_vercel_share=Mwp8bNTBKTrsiuen5vWshlUFzPJwOYHb"
+        run: |
+          CHROME_BIN="$(command -v google-chrome || command -v google-chrome-stable || command -v chromium || command -v chromium-browser)"
+          echo "CHROME_PATH=$CHROME_BIN" >> "$GITHUB_ENV"
+          mkdir -p /tmp/atmosfera-lh-profile
+          for url in "$SHARE_NO_REFRACTION" "$SHARE_NO_FIELD_BLUR" "$SHARE_MINIMAL_EFFECTS"; do
+            "$CHROME_BIN" --headless=new --no-sandbox --disable-gpu --user-data-dir=/tmp/atmosfera-lh-profile --dump-dom "$url" >/dev/null 2>&1 || true
+          done
+
+      - name: Run repeated mobile audits
+        env:
+          BASELINE: "https://www.atmosferastudio.cl/"
+          NO_REFRACTION: "https://atmosfera-git-perf-ab-no-refraction-valethyas-projects.vercel.app/"
+          NO_FIELD_BLUR: "https://atmosfera-git-perf-ab-no-field-blur-valethyas-projects.vercel.app/"
+          MINIMAL_EFFECTS: "https://atmosfera-git-perf-ab-minimal-effects-valethyas-projects.vercel.app/"
+        run: |
+          mkdir -p reports
+          audit() {
+            name="$1"
+            url="$2"
+            for run in 1 2 3; do
+              echo "AUDIT_START $name $run $url"
+              lighthouse "$url" \
+                --quiet \
+                --only-categories=performance \
+                --output=json \
+                --output-path="reports/${name}-${run}.json" \
+                --disable-storage-reset \
+                --max-wait-for-load=45000 \
+                --chrome-flags="--headless=new --no-sandbox --disable-gpu --user-data-dir=/tmp/atmosfera-lh-profile"
+            done
+          }
+
+          audit baseline "$BASELINE"
+          audit no-refraction "$NO_REFRACTION"
+          audit no-field-blur "$NO_FIELD_BLUR"
+          audit minimal-effects "$MINIMAL_EFFECTS"
+
+      - name: Summarize medians
+        run: |
+          node <<'NODE'
+          const fs = require('fs');
+          const variants = ['baseline', 'no-refraction', 'no-field-blur', 'minimal-effects'];
+          const auditIds = {
+            fcp: 'first-contentful-paint',
+            lcp: 'largest-contentful-paint',
+            speedIndex: 'speed-index',
+            tbt: 'total-blocking-time',
+            cls: 'cumulative-layout-shift',
+          };
+          const median = values => {
+            const sorted = [...values].sort((a, b) => a - b);
+            return sorted[Math.floor(sorted.length / 2)];
+          };
+
+          console.log('ATMOSFERA_AB_RESULTS_BEGIN');
+          for (const variant of variants) {
+            const runs = [1, 2, 3].map(run => JSON.parse(fs.readFileSync(`reports/${variant}-${run}.json`, 'utf8')));
+            const finalUrls = runs.map(r => r.finalDisplayedUrl || r.finalUrl);
+            const scores = runs.map(r => Math.round((r.categories.performance.score || 0) * 100));
+            const metrics = {};
+            for (const [key, id] of Object.entries(auditIds)) {
+              metrics[key] = runs.map(r => r.audits[id]?.numericValue ?? null).filter(Number.isFinite);
+            }
+            const result = {
+              variant,
+              finalUrls,
+              scores,
+              medianScore: median(scores),
+              medianFcpMs: median(metrics.fcp),
+              medianLcpMs: median(metrics.lcp),
+              medianSpeedIndexMs: median(metrics.speedIndex),
+              medianTbtMs: median(metrics.tbt),
+              medianCls: median(metrics.cls),
+            };
+            console.log(JSON.stringify(result));
+          }
+          console.log('ATMOSFERA_AB_RESULTS_END');
+          NODE
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: atmosfera-lighthouse-ab-reports
+          path: reports/*.json
