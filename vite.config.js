@@ -3,6 +3,7 @@ import { defineConfig } from 'vite';
 const googleFontStylesheet =
   'https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600&display=swap';
 const googleFontImport = `@import url('${googleFontStylesheet}');`;
+const experimentStyle = '.optical-window,.safari-optical-window{display:none!important}.field-layer{filter:none!important}.reading-veil::before{backdrop-filter:none!important;-webkit-backdrop-filter:none!important}';
 
 function fontLoadingHints() {
   return {
@@ -46,6 +47,11 @@ function fontLoadingHints() {
             href: googleFontStylesheet,
           },
           injectTo: 'head-prepend',
+        },
+        {
+          tag: 'style',
+          children: experimentStyle,
+          injectTo: 'head',
         },
       ];
     },
