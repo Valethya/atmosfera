@@ -4,6 +4,9 @@ on:
   push:
     branches:
       - tooling/lighthouse-ab-runner
+  pull_request:
+    branches:
+      - master
 
 jobs:
   audit:
