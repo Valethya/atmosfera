@@ -3,23 +3,16 @@ import puppeteer from 'puppeteer-core';
 import chromium from '@sparticuz/chromium';
 import lighthouse from 'lighthouse';
 
-const vercelShareToken = 'wl48d8EulwbiGUqkpWDMWcptZJxeZ8Um';
-const preview = (id, hostname) => ({
-  id,
-  url: `https://${hostname}/`,
-  shareUrl: `https://${hostname}/?_vercel_share=${vercelShareToken}`,
-});
-
 const targets = [
   {
     id: 'production',
     url: 'https://www.atmosferastudio.cl/',
   },
-  preview('control-preview', 'atmosfera-git-perf-ab-control-valethyas-projects.vercel.app'),
-  preview('no-refraction', 'atmosfera-git-perf-ab-no-refraction-valethyas-projects.vercel.app'),
-  preview('no-field-blur', 'atmosfera-git-perf-ab-no-field-blur-valethyas-projects.vercel.app'),
-  preview('minimal-effects', 'atmosfera-git-perf-ab-minimal-effects-valethyas-projects.vercel.app'),
-  preview('system-font', 'atmosfera-git-perf-ab-system-font-valethyas-projects.vercel.app'),
+  {
+    id: 'control-preview',
+    url: 'https://atmosfera-git-perf-ab-control-valethyas-projects.vercel.app/',
+    shareUrl: 'https://atmosfera-git-perf-ab-control-valethyas-projects.vercel.app/?_vercel_share=wl48d8EulwbiGUqkpWDMWcptZJxeZ8Um',
+  },
 ];
 
 const runsPerTarget = 3;
@@ -72,8 +65,6 @@ const browser = await puppeteer.launch({
 });
 
 try {
-  // The generated Vercel share credential is project-scoped. Establish access
-  // for every branch alias before Lighthouse starts, then preserve cookies.
   const authPage = await browser.newPage();
   authPage.setDefaultNavigationTimeout(60_000);
 
@@ -94,7 +85,6 @@ try {
     const runs = [];
 
     for (let run = 1; run <= runsPerTarget; run += 1) {
-      // Clear HTTP cache between runs while preserving authentication cookies.
       const page = await browser.newPage();
       const session = await page.createCDPSession();
       await session.send('Network.enable');
