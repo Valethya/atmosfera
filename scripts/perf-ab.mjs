@@ -1,5 +1,6 @@
 import fs from 'node:fs/promises';
-import puppeteer from 'puppeteer';
+import puppeteer from 'puppeteer-core';
+import chromium from '@sparticuz/chromium';
 import lighthouse from 'lighthouse';
 
 const targets = [
@@ -70,12 +71,15 @@ function summarize(id, runs) {
 
 await fs.rm(profileDir, { recursive: true, force: true });
 
+const executablePath = await chromium.executablePath();
+console.log(`ATMOSFERA_AB_CHROMIUM ${executablePath}`);
+
 const browser = await puppeteer.launch({
+  executablePath,
   headless: true,
   userDataDir: profileDir,
   args: [
-    '--no-sandbox',
-    '--disable-setuid-sandbox',
+    ...chromium.args,
     `--remote-debugging-port=${port}`,
   ],
 });
