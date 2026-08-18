@@ -1,4 +1,6 @@
+import '@fontsource-variable/bricolage-grotesque/standard.css';
 import './landing-v2.css';
+import './self-hosted-font.css';
 import './nav-gradient.css';
 import './mobile-hero-tuning.css';
 import './refraction-experiment.css';
