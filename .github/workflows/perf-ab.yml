@@ -30,7 +30,7 @@ jobs:
 
       - name: Authenticate Vercel preview
         env:
-          SHARE_SELF_HOST: "https://atmosfera-git-perf-self-host-bricolage-valethyas-projects.vercel.app/?_vercel_share=pcgHC0H3J9vwFMOfrDVvczmGkO8jos98"
+          SHARE_SELF_HOST: "https://atmosfera-lqwmxq3uy-valethyas-projects.vercel.app/?_vercel_share=SYiwGtSv77Ap1UZNbcpknYjceJ9WdJdD"
         run: |
           CHROME_BIN="$(command -v google-chrome || command -v google-chrome-stable || command -v chromium || command -v chromium-browser)"
           echo "CHROME_PATH=$CHROME_BIN" >> "$GITHUB_ENV"
@@ -40,7 +40,7 @@ jobs:
       - name: Run repeated mobile audits
         env:
           BASELINE: "https://www.atmosferastudio.cl/"
-          SELF_HOST: "https://atmosfera-git-perf-self-host-bricolage-valethyas-projects.vercel.app/"
+          SELF_HOST: "https://atmosfera-lqwmxq3uy-valethyas-projects.vercel.app/?_vercel_share=SYiwGtSv77Ap1UZNbcpknYjceJ9WdJdD"
         run: |
           mkdir -p reports
           audit() {
