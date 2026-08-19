@@ -1,13 +1,10 @@
-name: Temporary Lighthouse A/B audit
-run-name: Atmósfera Lighthouse A/B
+name: Temporary Lighthouse self-host verification
+run-name: Atmósfera self-hosted font verification
 
 on:
   push:
     branches:
       - tooling/lighthouse-ab-runner
-  pull_request:
-    branches:
-      - master
 
 permissions:
   contents: read
@@ -17,7 +14,7 @@ permissions:
 jobs:
   audit:
     runs-on: ubuntu-latest
-    timeout-minutes: 35
+    timeout-minutes: 25
     steps:
       - uses: actions/checkout@v4
 
@@ -28,25 +25,19 @@ jobs:
       - name: Install Lighthouse
         run: npm install --global lighthouse
 
-      - name: Authenticate Vercel preview URLs
+      - name: Authenticate Vercel preview
         env:
-          SHARE_NO_REFRACTION: "https://atmosfera-git-perf-ab-no-refraction-valethyas-projects.vercel.app/?_vercel_share=3DdpTg23X3rFBJkJCnPi01NGQwHiRs8r"
-          SHARE_NO_FIELD_BLUR: "https://atmosfera-git-perf-ab-no-field-blur-valethyas-projects.vercel.app/?_vercel_share=Aq3Va6IE745aquaKqAQI8pHMN95PRqYG"
-          SHARE_MINIMAL_EFFECTS: "https://atmosfera-git-perf-ab-minimal-effects-valethyas-projects.vercel.app/?_vercel_share=Mwp8bNTBKTrsiuen5vWshlUFzPJwOYHb"
+          SHARE_SELF_HOST: "https://atmosfera-git-perf-self-host-bricolage-valethyas-projects.vercel.app/?_vercel_share=pcgHC0H3J9vwFMOfrDVvczmGkO8jos98"
         run: |
           CHROME_BIN="$(command -v google-chrome || command -v google-chrome-stable || command -v chromium || command -v chromium-browser)"
           echo "CHROME_PATH=$CHROME_BIN" >> "$GITHUB_ENV"
           mkdir -p /tmp/atmosfera-lh-profile
-          for url in "$SHARE_NO_REFRACTION" "$SHARE_NO_FIELD_BLUR" "$SHARE_MINIMAL_EFFECTS"; do
-            "$CHROME_BIN" --headless=new --no-sandbox --disable-gpu --user-data-dir=/tmp/atmosfera-lh-profile --dump-dom "$url" >/dev/null 2>&1 || true
-          done
+          "$CHROME_BIN" --headless=new --no-sandbox --disable-gpu --user-data-dir=/tmp/atmosfera-lh-profile --dump-dom "$SHARE_SELF_HOST" >/dev/null 2>&1 || true
 
       - name: Run repeated mobile audits
         env:
           BASELINE: "https://www.atmosferastudio.cl/"
-          NO_REFRACTION: "https://atmosfera-git-perf-ab-no-refraction-valethyas-projects.vercel.app/"
-          NO_FIELD_BLUR: "https://atmosfera-git-perf-ab-no-field-blur-valethyas-projects.vercel.app/"
-          MINIMAL_EFFECTS: "https://atmosfera-git-perf-ab-minimal-effects-valethyas-projects.vercel.app/"
+          SELF_HOST: "https://atmosfera-git-perf-self-host-bricolage-valethyas-projects.vercel.app/"
         run: |
           mkdir -p reports
           audit() {
@@ -66,15 +57,13 @@ jobs:
           }
 
           audit baseline "$BASELINE"
-          audit no-refraction "$NO_REFRACTION"
-          audit no-field-blur "$NO_FIELD_BLUR"
-          audit minimal-effects "$MINIMAL_EFFECTS"
+          audit self-host "$SELF_HOST"
 
-      - name: Summarize medians
+      - name: Summarize medians and font requests
         run: |
           node <<'NODE'
           const fs = require('fs');
-          const variants = ['baseline', 'no-refraction', 'no-field-blur', 'minimal-effects'];
+          const variants = ['baseline', 'self-host'];
           const auditIds = {
             fcp: 'first-contentful-paint',
             lcp: 'largest-contentful-paint',
@@ -88,15 +77,21 @@ jobs:
           };
           const results = [];
 
-          console.log('ATMOSFERA_AB_RESULTS_BEGIN');
+          console.log('ATMOSFERA_SELF_HOST_RESULTS_BEGIN');
           for (const variant of variants) {
             const runs = [1, 2, 3].map(run => JSON.parse(fs.readFileSync(`reports/${variant}-${run}.json`, 'utf8')));
-            const finalUrls = runs.map(r => r.finalDisplayedUrl || r.finalUrl);
             const scores = runs.map(r => Math.round((r.categories.performance.score || 0) * 100));
             const metrics = {};
             for (const [key, id] of Object.entries(auditIds)) {
               metrics[key] = runs.map(r => r.audits[id]?.numericValue ?? null).filter(Number.isFinite);
             }
+
+            const networkItems = runs[1]?.audits?.['network-requests']?.details?.items || [];
+            const urls = networkItems.map(item => item.url || '');
+            const googleFontRequests = urls.filter(url => /fonts\.(googleapis|gstatic)\.com/.test(url));
+            const localFontRequests = urls.filter(url => /bricolage-grotesque.*\.woff2(?:\?|$)/i.test(url));
+            const finalUrls = runs.map(r => r.finalDisplayedUrl || r.finalUrl);
+
             const result = {
               variant,
               finalUrls,
@@ -107,45 +102,48 @@ jobs:
               medianSpeedIndexMs: median(metrics.speedIndex),
               medianTbtMs: median(metrics.tbt),
               medianCls: median(metrics.cls),
+              googleFontRequests,
+              localFontRequests,
             };
             results.push(result);
             console.log(JSON.stringify(result));
           }
-          fs.writeFileSync('ab-results.json', JSON.stringify(results, null, 2));
-          console.log('ATMOSFERA_AB_RESULTS_END');
+          fs.writeFileSync('self-host-results.json', JSON.stringify(results, null, 2));
+          console.log('ATMOSFERA_SELF_HOST_RESULTS_END');
           NODE
 
-      - name: Post results to temporary PR
+      - name: Post results to PR 8
         if: success()
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
           node <<'NODE'
           const fs = require('fs');
-          const results = JSON.parse(fs.readFileSync('ab-results.json', 'utf8'));
-          const labels = {
-            baseline: 'Producción',
-            'no-refraction': 'Sin refracción óptica',
-            'no-field-blur': 'Sin blur de la mancha',
-            'minimal-effects': 'Efectos mínimos',
-          };
+          const results = JSON.parse(fs.readFileSync('self-host-results.json', 'utf8'));
+          const labels = { baseline: 'Producción', 'self-host': 'Bricolage autoalojada' };
           const fmt = n => Number.isFinite(n) ? Math.round(n) : 'n/a';
           const lines = [
-            '## Resultado temporal Lighthouse A/B',
+            '## Verificación Lighthouse de Bricolage autoalojada',
             '',
-            '| Variante | Runs | Mediana | FCP | LCP | Speed Index | TBT | CLS |',
-            '|---|---:|---:|---:|---:|---:|---:|---:|',
+            '| Variante | Runs | Mediana | FCP | LCP | Speed Index | TBT | CLS | Google Fonts | Fuentes locales |',
+            '|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|',
           ];
           for (const r of results) {
-            lines.push(`| ${labels[r.variant]} | ${r.scores.join(' / ')} | **${r.medianScore}** | ${fmt(r.medianFcpMs)} ms | ${fmt(r.medianLcpMs)} ms | ${fmt(r.medianSpeedIndexMs)} ms | ${fmt(r.medianTbtMs)} ms | ${Number.isFinite(r.medianCls) ? r.medianCls.toFixed(3) : 'n/a'} |`);
+            lines.push(`| ${labels[r.variant]} | ${r.scores.join(' / ')} | **${r.medianScore}** | ${fmt(r.medianFcpMs)} ms | ${fmt(r.medianLcpMs)} ms | ${fmt(r.medianSpeedIndexMs)} ms | ${fmt(r.medianTbtMs)} ms | ${Number.isFinite(r.medianCls) ? r.medianCls.toFixed(3) : 'n/a'} | ${r.googleFontRequests.length} | ${r.localFontRequests.length} |`);
           }
-          lines.push('', 'Prueba diagnóstica únicamente. No fusionar este PR.');
-          fs.writeFileSync('ab-comment.md', lines.join('\n'));
+          lines.push('', '### Red de fuentes (run mediano)', '');
+          for (const r of results) {
+            lines.push(`**${labels[r.variant]}**`);
+            lines.push(`- Google Fonts: ${r.googleFontRequests.length ? r.googleFontRequests.join(', ') : 'ninguna solicitud'}`);
+            lines.push(`- Bricolage local: ${r.localFontRequests.length ? r.localFontRequests.join(', ') : 'ninguna solicitud detectada'}`);
+          }
+          lines.push('', 'Prueba diagnóstica. Mantener PR #8 en Draft hasta validación visual y aprobación explícita.');
+          fs.writeFileSync('self-host-comment.md', lines.join('\n'));
           NODE
-          gh pr comment 7 --body-file ab-comment.md
+          gh pr comment 8 --body-file self-host-comment.md
 
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: atmosfera-lighthouse-ab-reports
+          name: atmosfera-self-host-lighthouse-reports
           path: reports/*.json
