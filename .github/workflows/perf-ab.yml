@@ -1,5 +1,5 @@
-name: Temporary Lighthouse self-host verification
-run-name: Atmósfera self-hosted font verification
+name: Temporary lockfile generation
+run-name: Atmósfera self-hosted font lockfile
 
 on:
   push:
@@ -11,142 +11,25 @@ on:
 
 permissions:
   contents: read
-  issues: write
-  pull-requests: write
 
 jobs:
-  audit:
+  lockfile:
     runs-on: ubuntu-latest
-    timeout-minutes: 25
+    timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: perf/self-host-bricolage
 
       - uses: actions/setup-node@v4
         with:
           node-version: 22
+          cache: npm
 
-      - name: Install Lighthouse
-        run: npm install --global lighthouse
-
-      - name: Authenticate Vercel preview
-        env:
-          SHARE_SELF_HOST: "https://atmosfera-lqwmxq3uy-valethyas-projects.vercel.app/?_vercel_share=SYiwGtSv77Ap1UZNbcpknYjceJ9WdJdD"
-        run: |
-          CHROME_BIN="$(command -v google-chrome || command -v google-chrome-stable || command -v chromium || command -v chromium-browser)"
-          echo "CHROME_PATH=$CHROME_BIN" >> "$GITHUB_ENV"
-          mkdir -p /tmp/atmosfera-lh-profile
-          "$CHROME_BIN" --headless=new --no-sandbox --disable-gpu --user-data-dir=/tmp/atmosfera-lh-profile --dump-dom "$SHARE_SELF_HOST" >/dev/null 2>&1 || true
-
-      - name: Run repeated mobile audits
-        env:
-          BASELINE: "https://www.atmosferastudio.cl/"
-          SELF_HOST: "https://atmosfera-lqwmxq3uy-valethyas-projects.vercel.app/?_vercel_share=SYiwGtSv77Ap1UZNbcpknYjceJ9WdJdD"
-        run: |
-          mkdir -p reports
-          audit() {
-            name="$1"
-            url="$2"
-            for run in 1 2 3; do
-              echo "AUDIT_START $name $run $url"
-              lighthouse "$url" \
-                --quiet \
-                --only-categories=performance \
-                --output=json \
-                --output-path="reports/${name}-${run}.json" \
-                --disable-storage-reset \
-                --max-wait-for-load=45000 \
-                --chrome-flags="--headless=new --no-sandbox --disable-gpu --user-data-dir=/tmp/atmosfera-lh-profile"
-            done
-          }
-
-          audit baseline "$BASELINE"
-          audit self-host "$SELF_HOST"
-
-      - name: Summarize medians and font requests
-        run: |
-          node <<'NODE'
-          const fs = require('fs');
-          const variants = ['baseline', 'self-host'];
-          const auditIds = {
-            fcp: 'first-contentful-paint',
-            lcp: 'largest-contentful-paint',
-            speedIndex: 'speed-index',
-            tbt: 'total-blocking-time',
-            cls: 'cumulative-layout-shift',
-          };
-          const median = values => {
-            const sorted = [...values].sort((a, b) => a - b);
-            return sorted[Math.floor(sorted.length / 2)];
-          };
-          const results = [];
-
-          console.log('ATMOSFERA_SELF_HOST_RESULTS_BEGIN');
-          for (const variant of variants) {
-            const runs = [1, 2, 3].map(run => JSON.parse(fs.readFileSync(`reports/${variant}-${run}.json`, 'utf8')));
-            const scores = runs.map(r => Math.round((r.categories.performance.score || 0) * 100));
-            const metrics = {};
-            for (const [key, id] of Object.entries(auditIds)) {
-              metrics[key] = runs.map(r => r.audits[id]?.numericValue ?? null).filter(Number.isFinite);
-            }
-
-            const networkItems = runs[1]?.audits?.['network-requests']?.details?.items || [];
-            const urls = networkItems.map(item => item.url || '');
-            const googleFontRequests = urls.filter(url => /fonts\.(googleapis|gstatic)\.com/.test(url));
-            const localFontRequests = urls.filter(url => /bricolage-grotesque.*\.woff2(?:\?|$)/i.test(url));
-            const finalUrls = runs.map(r => r.finalDisplayedUrl || r.finalUrl);
-
-            const result = {
-              variant,
-              finalUrls,
-              scores,
-              medianScore: median(scores),
-              medianFcpMs: median(metrics.fcp),
-              medianLcpMs: median(metrics.lcp),
-              medianSpeedIndexMs: median(metrics.speedIndex),
-              medianTbtMs: median(metrics.tbt),
-              medianCls: median(metrics.cls),
-              googleFontRequests,
-              localFontRequests,
-            };
-            results.push(result);
-            console.log(JSON.stringify(result));
-          }
-          fs.writeFileSync('self-host-results.json', JSON.stringify(results, null, 2));
-          console.log('ATMOSFERA_SELF_HOST_RESULTS_END');
-          NODE
-
-      - name: Post results to PR 8
-        if: success()
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: |
-          node <<'NODE'
-          const fs = require('fs');
-          const results = JSON.parse(fs.readFileSync('self-host-results.json', 'utf8'));
-          const labels = { baseline: 'Producción', 'self-host': 'Bricolage autoalojada' };
-          const fmt = n => Number.isFinite(n) ? Math.round(n) : 'n/a';
-          const lines = [
-            '## Verificación Lighthouse de Bricolage autoalojada',
-            '',
-            '| Variante | Runs | Mediana | FCP | LCP | Speed Index | TBT | CLS | Google Fonts | Fuentes locales |',
-            '|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|',
-          ];
-          for (const r of results) {
-            lines.push(`| ${labels[r.variant]} | ${r.scores.join(' / ')} | **${r.medianScore}** | ${fmt(r.medianFcpMs)} ms | ${fmt(r.medianLcpMs)} ms | ${fmt(r.medianSpeedIndexMs)} ms | ${fmt(r.medianTbtMs)} ms | ${Number.isFinite(r.medianCls) ? r.medianCls.toFixed(3) : 'n/a'} | ${r.googleFontRequests.length} | ${r.localFontRequests.length} |`);
-          }
-          lines.push('', '### Red de fuentes (run mediano)', '');
-          for (const r of results) {
-            lines.push(`**${labels[r.variant]}**`);
-            lines.push(`- Google Fonts: ${r.googleFontRequests.length ? r.googleFontRequests.join(', ') : 'ninguna solicitud'}`);
-            lines.push(`- Bricolage local: ${r.localFontRequests.length ? r.localFontRequests.join(', ') : 'ninguna solicitud detectada'}`);
-          }
-          lines.push('', 'Prueba diagnóstica. Mantener PR #8 en Draft hasta validación visual y aprobación explícita.');
-          fs.writeFileSync('self-host-comment.md', lines.join('\n'));
-          NODE
-          gh pr comment 8 --body-file self-host-comment.md
+      - name: Generate package-lock.json
+        run: npm install --package-lock-only --ignore-scripts
 
       - uses: actions/upload-artifact@v4
-        if: always()
         with:
-          name: atmosfera-self-host-lighthouse-reports
-          path: reports/*.json
+          name: atmosfera-self-host-package-lock
+          path: package-lock.json
