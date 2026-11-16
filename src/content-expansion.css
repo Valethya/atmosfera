@@ -401,3 +401,33 @@ em {
     transition: none;
   }
 }
+
+
+/* Readability pass for compact supporting copy, especially on laptop screens. */
+.section-copy,
+.principle-copy p,
+.accordion-body p,
+.agenda-condition p,
+.closing-copy {
+  font-size: 16px;
+  line-height: 1.6;
+  color: rgba(17,17,17,.82);
+}
+
+.hero-bottom .hero-description {
+  font-size: 14px;
+  line-height: 1.55;
+  color: rgba(17,17,17,.82);
+}
+
+.closing-coordinates {
+  font-size: 14px;
+  line-height: 1.7;
+  color: rgba(17,17,17,.78);
+}
+
+@media (min-width: 760px) {
+  .closing-coordinates {
+    font-size: 14px;
+  }
+}
