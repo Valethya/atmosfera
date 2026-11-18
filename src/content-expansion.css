@@ -444,3 +444,27 @@ em {
   font-size: 12.5px;
   color: rgba(17, 17, 17, .86);
 }
+
+
+/* Subtle white edge glow on supporting text keeps it legible over the color field. */
+.hero-kicker,
+.hero-bottom .hero-description,
+.hero-bottom small,
+.section-index,
+.section-copy,
+.accordion-num,
+.accordion-heading small,
+.accordion-body p,
+.accordion-note,
+.principle-copy p,
+.agenda-condition p,
+.text-link,
+.closing-copy,
+.closing-coordinates,
+.site-footer,
+.brand-name,
+.cta {
+  text-shadow:
+    0 0 4px rgba(245, 245, 245, .72),
+    0 0 12px rgba(245, 245, 245, .42);
+}
