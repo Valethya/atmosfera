@@ -401,3 +401,76 @@ em {
     transition: none;
   }
 }
+
+
+/* Readability pass for compact supporting copy, especially on laptop screens. */
+.section-copy,
+.principle-copy p,
+.accordion-body p,
+.agenda-condition p,
+.closing-copy {
+  font-size: 16px;
+  line-height: 1.6;
+  color: rgba(17,17,17,.82);
+}
+
+.hero-bottom .hero-description {
+  font-size: 14px;
+  line-height: 1.55;
+  color: rgba(17,17,17,.82);
+}
+
+.closing-coordinates {
+  font-size: 14px;
+  line-height: 1.7;
+  color: rgba(17,17,17,.78);
+}
+
+@media (min-width: 760px) {
+  .closing-coordinates {
+    font-size: 14px;
+  }
+}
+
+
+/* Small labels stay readable through type size and the existing soft radial veil. */
+.accordion-num,
+.accordion-heading small {
+  font-size: 13px;
+  color: rgba(17, 17, 17, .9);
+}
+
+.accordion-note {
+  font-size: 12.5px;
+  color: rgba(17, 17, 17, .86);
+}
+
+
+/* Supporting copy stays crisp; warm ivory is reserved for dropdowns over the color field. */
+.hero-kicker,
+.hero-bottom .hero-description,
+.hero-bottom small,
+.section-index,
+.section-copy,
+.accordion-num,
+.accordion-heading small,
+.accordion-body p,
+.accordion-note,
+.principle-copy p,
+.agenda-condition p,
+.text-link,
+.closing-copy,
+.closing-coordinates,
+.site-footer,
+.brand-name,
+.cta {
+  text-shadow: none;
+}
+
+/* High contrast for the service dropdowns that sit directly over the gradient. */
+.offer .accordion-num,
+.offer .accordion-heading small,
+.offer .accordion-body p,
+.offer .accordion-note {
+  color: #f5f2ec;
+}
