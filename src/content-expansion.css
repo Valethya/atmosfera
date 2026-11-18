@@ -446,7 +446,7 @@ em {
 }
 
 
-/* Subtle white edge glow on supporting text keeps it legible over the color field. */
+/* Supporting copy stays crisp; warm ivory is reserved for dropdowns over the color field. */
 .hero-kicker,
 .hero-bottom .hero-description,
 .hero-bottom small,
@@ -464,7 +464,13 @@ em {
 .site-footer,
 .brand-name,
 .cta {
-  text-shadow:
-    0 0 2px rgba(245, 245, 245, .68),
-    0 0 7px rgba(245, 245, 245, .34);
+  text-shadow: none;
+}
+
+/* High contrast for the service dropdowns that sit directly over the gradient. */
+.offer .accordion-num,
+.offer .accordion-heading small,
+.offer .accordion-body p,
+.offer .accordion-note {
+  color: #f5f2ec;
 }
