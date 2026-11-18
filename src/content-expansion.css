@@ -433,26 +433,7 @@ em {
 }
 
 
-/* Light glass backing preserves the chromatic field while separating small copy. */
-.section-copy,
-.principle-copy p,
-.accordion-body p,
-.agenda-condition p,
-.closing-copy,
-.closing-coordinates {
-  background: rgba(245, 245, 245, .58);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border-radius: 2px;
-  padding: 10px 12px;
-}
-
-.editorial-item summary {
-  background: rgba(245, 245, 245, .34);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-}
-
+/* Small labels stay readable through type size and the existing soft radial veil. */
 .accordion-num,
 .accordion-heading small {
   font-size: 13px;
