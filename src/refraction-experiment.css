@@ -166,3 +166,18 @@
 
   .optical-window { display: none; }
 }
+
+
+/* Stronger pale veil keeps dark copy readable where the color field crosses it. */
+.reading-veil::before {
+  background: radial-gradient(
+    ellipse at 50% 50%,
+    rgba(245, 245, 245, .72) 0%,
+    rgba(245, 245, 245, .58) 38%,
+    rgba(245, 245, 245, .34) 58%,
+    rgba(245, 245, 245, .12) 74%,
+    rgba(245, 245, 245, 0) 88%
+  );
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
