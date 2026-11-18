@@ -172,10 +172,10 @@
 .reading-veil::before {
   background: radial-gradient(
     ellipse at 50% 50%,
-    rgba(245, 245, 245, .72) 0%,
-    rgba(245, 245, 245, .58) 38%,
-    rgba(245, 245, 245, .34) 58%,
-    rgba(245, 245, 245, .12) 74%,
+    rgba(245, 245, 245, .60) 0%,
+    rgba(245, 245, 245, .46) 38%,
+    rgba(245, 245, 245, .26) 58%,
+    rgba(245, 245, 245, .08) 74%,
     rgba(245, 245, 245, 0) 88%
   );
   backdrop-filter: blur(14px);
