@@ -13,17 +13,17 @@
 
   .hero-bottom .hero-description {
     width: min(370px, 90%);
-    font-size: 11.5px;
+    font-size: 14px;
     line-height: 1.5;
     color: rgba(17,17,17,.76);
   }
 
   .accordion-num {
-    font-size: 11px;
+    font-size: 13px;
   }
 
   .accordion-heading small {
-    font-size: 12px;
+    font-size: 13.5px;
     line-height: 1.35;
     color: rgba(17,17,17,.72);
   }
@@ -33,7 +33,7 @@
   }
 
   .accordion-body p {
-    font-size: 15.5px;
+    font-size: 16px;
     line-height: 1.62;
     color: rgba(17,17,17,.82);
   }
@@ -41,7 +41,7 @@
   .accordion-note {
     margin-top: 20px !important;
     padding-top: 14px;
-    font-size: 10.5px !important;
+    font-size: 12.5px !important;
     line-height: 1.5 !important;
     letter-spacing: .025em;
     color: rgba(17,17,17,.78) !important;
@@ -69,7 +69,7 @@
   }
 
   .text-link {
-    font-size: 12.5px;
+    font-size: 14px;
     line-height: 1.4;
   }
 
@@ -90,7 +90,7 @@
   }
 
   .closing-coordinates {
-    font-size: 11px;
+    font-size: 14px;
     line-height: 1.65;
     color: rgba(17,17,17,.68);
   }
