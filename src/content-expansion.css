@@ -401,3 +401,40 @@ em {
     transition: none;
   }
 }
+
+
+/* Readability pass for compact supporting copy, especially on laptop screens. */
+.section-copy,
+.principle-copy p,
+.accordion-body p,
+.agenda-condition p,
+.closing-copy {
+  font-size: 16px;
+}
+
+.hero-bottom .hero-description {
+  font-size: 14px;
+}
+
+.closing-coordinates {
+  font-size: 14px;
+}
+
+@media (min-width: 760px) {
+  .closing-coordinates {
+    font-size: 14px;
+  }
+}
+
+
+/* Small labels stay readable through type size and the existing soft radial veil. */
+.accordion-num,
+.accordion-heading small {
+  font-size: 13px;
+}
+
+.accordion-note {
+  font-size: 12.5px;
+}
+
+
